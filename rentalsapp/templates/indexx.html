@@ -1,0 +1,50 @@
+<h1>Members</h1>
+<p>Hello {{username}}</p>
+<p><a href="/firstApp/logout/">Logout </a></p>
+<input name="textbox" type="text"><br><br>
+<form action="/rentalsapp/indexx/" method="post">
+    {% csrf_token %}
+    <label for="sort">Sort by:</label>
+   
+    <select name="sort" id="sort" >
+      <option value="firstname" id="fname">Firstname</option>
+      <option value="lastname" {% if sort == "lastname" %} selected {% endif %} id="lname">Lastname</option>
+      <option value="email" {% if sort == "email" %} selected {% endif %} id="email">Email</option>
+      <option value="age" id="age">Age</option>
+    </select>
+    <br><br>
+    <input type="submit" value="Submit">
+    <br><br>
+    <input name="search" placeholder="Search by firstname, lastname or email..." id="search">
+    <button type="submit" value="Submit">Search</button>
+  </form>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Lastname</th>
+        <th>Firstname</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Dob</th>
+        <th>Age</th>
+        <th>Password</th>
+        <th>delete</th>
+        <th>Edit Username and Password</th>
+    </tr>
+    {% for x in mymembers %}
+    <tr>
+        <td>{{ x.id }}</td>
+        <td>{{ x.lastName }}</td>
+        <td>{{ x.firstName }}</td>
+        <td>{{ x.registrationMail }}</td>
+        <td>{{x.regiPass}}</td>
+        <td><a href="/firstApp/delete/{{x.id}}">delete</a></td>
+        <td><a href="/firstApp/edit/{{x.id}}">Edit Username and Password</a></td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+<p>
+    <a href="/firstApp/add/">Add member</a>
+</p>

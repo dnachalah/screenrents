@@ -1,0 +1,1015 @@
+{% load static %}
+<html lang="en-US">
+<head>
+    <!-- required meta -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- #favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+    <!-- #title -->
+    <title>Revest : Real Estate Investment For Everyone</title>
+    <!-- #keywords -->
+    <meta name="keywords" content="Real Estate, Investment, Properties, Rent">
+    <!-- #description -->
+    <meta name="description" content="Real Estate Investment For Everyone">
+    <!-- #author -->
+    <meta name="author" content="Pixelaxis">
+
+    <!-- ==== css dependencies start ==== -->
+
+    <!-- bootstrap five css -->
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <!-- font awesome six css -->
+    <link rel="stylesheet" href="{% static 'all.min.css' %}">
+    <!-- nice select css -->
+    <link rel="stylesheet" href="{% static 'nice-select.css' %}">
+    <!-- magnific popup css -->
+    <link rel="stylesheet" href="{% static 'magnific-popup.css' %}">
+    <!-- slick css -->
+    <link rel="stylesheet" href="{% static '/slick.css' %}">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'animate.css' %}">
+
+    <!-- ==== css dependencies end ==== -->
+
+    <!-- main css -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+
+<body>
+
+    <!-- ==== header start ==== -->
+    <header class="header">
+        <nav class="navbar navbar-expand-xl">
+            <div class="container">
+                <a class="navbar-brand" href="/rentalsapp/">
+                    <img src="{% static 'assets/images/logo.png' %}" alt="Logo" class="logo">
+                </a>
+                <div class="navbar__out order-2 order-xl-3">
+                    <div class="nav__group__btn">
+                    {% if reQ != '' %}
+                        <a href="/rentalsapp/login/" class="log d-none d-sm-block"> Hello {{reQ}}. </a>
+                    {% endif %}
+
+                    {% if reQ == '' %}
+                        <a href="/rentalsapp/login/" class="log d-none d-sm-block"> Log In </a>
+                        <a href="/rentalsapp/register/" class="button button--effect d-none d-sm-block"> Join Now <i class="fa-solid fa-arrow-right-long"></i> </a>
+                    {% endif %}
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle Primary Nav">
+                        <span class="icon-bar top-bar"></span>
+                        <span class="icon-bar middle-bar"></span>
+                        <span class="icon-bar bottom-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse order-3 order-xl-2" id="primaryNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{% static 'javascript:void(0)' %}" id="navbarHomeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Home
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarHomeDropdown">
+                                <li><a class="dropdown-item" href="/rentalsapp/index/">Home</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/index-two/">Home Two</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/index-three/">Home Three</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{% static 'javascript:void(0)' %}" id="navbarPropertyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Properties
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarPropertyDropdown">
+                                <li><a class="dropdown-item" href="/rentalsapp/properties/">Properties</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/property-details/">Property Details</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/property-alert/">Property Alert</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{% static 'javascript:void(0)' %}" id="navbarLoanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Loan
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarLoanDropdown">
+                                <li><a class="dropdown-item" href="/rentalsapp/business-loan/">Business Loan</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/business-loan-details/">Business Loan Details</a>
+                                </li>
+                                <li><a class="dropdown-item" href="/rentalsapp/loan-application/">Loan Application</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/rentalsapp/list-your-property/">List your property</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{% static 'javascript:void(0)' %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Pages
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="/rentalsapp/dashboard/">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/about-us/">About Us</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/affiliate-program/">Affiliate Program</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/blog/">Blog</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/blog-two/">Blog Two</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/blog-single/">Blog Single</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/career/">Career</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/career-details/">Career Details</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/how-it-works/">How It Works</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/key-risks/">Key Risks</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/loyality-program./">Loyality Program</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/terms-conditions/">Terms Conditions</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/privacy-policy/">Privacy Policy</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/cookie-policy/">Cookie Policy</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/support/">Support</a></li>
+                                <li><a class="dropdown-item" href="/rentalsapp/404/">Error</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/rentalsapp/contact-us/">Contact</a>
+                        </li>
+                        <li class="nav-item d-block d-sm-none">
+                            <a href="/rentalsapp/login/" class="nav-link" >Log In</a>
+                        </li>
+                        <li class="nav-item d-block d-sm-none">
+                            <a href="/rentalsapp/registration/" class="button button--effect button--last">Join Now<i class="fa-solid fa-arrow-right-long"></i></a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- ==== #header end ==== -->
+
+        <!-- ==== hero section start ==== -->
+{% for x in screens %}    
+    <section class="hero pos__rel over__hi bg__img" data-background="{% static './assets/images/hero/light-bg.png' %}" style="background-image: url(&quot;{% static './assets/images/hero/light-bg.png' %}&quot;);">
+        <div class="container">
+            <div class="hero__area">
+                <div class="row">
+                    <div class="col-lg-6 col-xxl-5">
+                        <div class="hero__content">
+                            
+                            <h1> <span>{{ x.screenname }}</span> </h1>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xxl-6 offset-xxl-1">
+                        <div class="hero__illustration d-none d-lg-block">
+                            <img src="{% static 'assets/images/hero/hero-illustration.png' %}" alt="Hero Illustration">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==== #hero section end ==== -->
+
+    <!-- ==== property filter start ==== -->
+    <div class="property__filter">
+        <div class="container">
+            <div class="property__filter__area">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-12 col-xl-6">
+                        <div class="property__search__wrapper">
+                            <form action="/rentalsapp/results/" method="post">
+                            {% csrf_token %}
+                                <div class="input">
+                                    <input type="search" name="property__search" id="propertySearch" placeholder="Search for properties">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </div>
+                                <button type="submit" class="button button--effect">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-3">
+                        <div class="property__select__wrapper">
+                            <select class="location__select" style="display: none;">
+                                <option data-display="Location">Select Location</option>
+                                <option value="angeles">Los Angeles</option>
+                                <option value="francis">San Francisco, CA</option>
+                                <option value="weldon">The Weldon</option>
+                                <option value="diego">San Diego</option>
+                            </select><div class="nice-select location__select" tabindex="0"><span class="current">Location</span><ul class="list"><li data-value="Select Location" data-display="Location" class="option selected">Select Location</li><li data-value="angeles" class="option">Los Angeles</li><li data-value="francis" class="option">San Francisco, CA</li><li data-value="weldon" class="option">The Weldon</li><li data-value="diego" class="option">San Diego</li></ul></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-3">
+                        <div class="property__select__wrapper">
+                            <select class="property__select" style="display: none;">
+                                <option data-display="Property">Property Type</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="residential">Residential</option>
+                            </select><div class="nice-select property__select" tabindex="0"><span class="current">Property</span><ul class="list"><li data-value="Property Type" data-display="Property" class="option selected">Property Type</li><li data-value="commercial" class="option">Commercial</li><li data-value="residential" class="option">Residential</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ==== #property filter end ==== -->
+
+    <!-- ==== featured properties section start ==== -->
+    <section class="featured__properties section__space">
+        <div class="container">
+            <div class="featured__properties__area wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                <div class="title__with__cta">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-8">
+                            <h2>Search Results</h2>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="text-start text-lg-end">
+                                <a href="/rentalsapp/properties/" class="button button--secondary button--effect">Browse All
+                                    Properties</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {% for x in screens %} -->
+                <div class="property__list__wrapper">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-5">
+                            <div class="property__item__image column__space--secondary">
+                                <div class="img__effect">
+                                    <a href="/rentalsapp/property-details/{{ x.id }}">
+                                        <img src="{{BASE_DIR}}/static/assets{{x.picture}}" alt="Los Angeles">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="property__item__content">
+                                <div class="item__head">
+                                    <div class="item__head__left">
+                                        <<h4>
+                                            {{ x.screenname }}
+                                        </h4>
+                                        <p><i class="fa-solid fa-location-dot"></i> 8706 Herrick Ave, Los Angeles</p>
+                                    </div>
+                                    <div class="item__head__right">
+                                        <div class="countdown__wrapper">
+                                            <p class="secondary"><i class="fa-solid fa-clock"></i> Left to invest</p>
+                                            <div class="countdown">
+                                                <h5>
+                                                    <span class="days">237</span><span class="ref">d</span>
+                                                    <span class="seperator">:</span>
+                                                </h5>
+                                                <h5>
+                                                    <span class="hours">14</span><span class="ref">h</span>
+                                                    <span class="seperator">:</span>
+                                                </h5>
+                                                <h5>
+                                                    <span class="minutes">55</span><span class="ref">m</span>
+                                                    <span class="seperator"></span>
+                                                </h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="progress__type progress__type--two">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="project__info">
+                                        <p class="project__has"><span class="project__has__investors">119
+                                                Investors</span> | <span class="project__has__investors__amount"><i class="fa-solid fa-dollar-sign"></i> 4,94,196</span> <span class="project__has__investors__percent">(54.73%)</span></p>
+                                        <p class="project__goal">
+                                            <i class="fa-solid fa-dollar-sign"></i> {{ x.price }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="item__info">
+                                    <div class="item__info__single">
+                                        <p>Annual Return</p>
+                                        <h6>7.5% + 3%</h6>
+                                    </div>
+                                    <div class="item__info__single">
+                                        <p>Maximum Term</p>
+                                        <h6>26 Months</h6>
+                                    </div>
+                                    <div class="item__info__single">
+                                        <p>Property Type</p>
+                                        <h6>Commercial</h6>
+                                    </div>
+                                    <div class="item__info__single">
+                                        <p>Distribution</p>
+                                        <h6>Monthly</h6>
+                                    </div>
+                                </div>
+                                <div class="item__footer">
+                                    <div class="item__security">
+                                        <div class="icon__box">
+                                            <img src="{% static 'assets/images/home.png' %}" alt="Security">
+                                        </div>
+                                        <div class="item__security__content">
+                                            <p class="secondary">Security</p>
+                                            <h6>1st-Rank Mortgage</h6>
+                                        </div>
+                                    </div>
+                                    <div class="item__cta__group">
+                                        <a href="/rentalsapp/registration/" class="button button--effect">Invest Now</a>
+                                        <a href="/rentalsapp/property-details/" class="button button--secondary button--effect">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- {% endfor %} -->
+            </div>
+        </div>
+    </section>
+    <!-- ==== #featured properties section end ==== -->
+
+
+    <!-- ==== profit overview section start ==== -->
+    <section class="profit section__space">
+        <div class="container">
+            <div class="profit__area wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                <div class="section__header">
+                    <h5 class="neutral-top">Built to help smart investors invest smarter</h5>
+                    <h2>We handle the heavy lifting so you
+                        can sit back, relax, and profit.</h2>
+                    <p class="neutral-bottom">We make institutional quality real estate accessible to investors, in a
+                        simple
+                        and transparent way.</p>
+                </div>
+                <div class="profit__item__wrapper">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="profit__single__item alt shadow__effect">
+                                <div class="img__box">
+                                    <img src="{% static 'assets/images/overview/passive-income.png' %}" alt="Passive Income">
+                                </div>
+                                <div class="item__content">
+                                    <h4>Passive Income</h4>
+                                    <p>Earn rental income and receive deposits quarterly</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="profit__single__item shadow__effect">
+                                <div class="img__box">
+                                    <img src="{% static 'assets/images/overview/secure.png' %}" alt="secure">
+                                </div>
+                                <div class="item__content">
+                                    <h4>Secure &amp; Cost-efficient</h4>
+                                    <p>Digital security is legally compliant and tangible for qualified investors</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profit__item__wrapper">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="profit__single__item alt shadow__effect">
+                                <div class="img__box">
+                                    <img src="{% static 'assets/images/overview/transparency.png' %}" alt="Transparency">
+                                </div>
+                                <div class="item__content">
+                                    <h4>Transparency</h4>
+                                    <p>Easily consult the full documentation for each property.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="profit__single__item shadow__effect">
+                                <div class="img__box">
+                                    <img src="{% static 'assets/images/overview/support.png' %}" alt="Support">
+                                </div>
+                                <div class="item__content">
+                                    <h4>Support</h4>
+                                    <p>Earn rental income and receive deposits quarterly</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==== #profit overview section end ==== -->
+
+    <!-- ==== start step section start ==== -->
+    <section class="start section__space__top bg__img" data-background="./assets/images/step/start-bg.png" style="background-image: url(&quot;./assets/images/step/start-bg.png&quot;);">
+        <div class="container">
+            <div class="start__area wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                <div class="section__header">
+                    <h5 class="neutral-top">We're changing the way you invest.</h5>
+                    <h2>It's Easy to Get Started.</h2>
+                    <p class="neutral-bottom">Signing up with Revest is simple and only takes a few minutes. We can
+                        automatically connect with more than 3,500 banks, so no complicated paperwork is required to
+                        fund your account.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-xl-4">
+                        <div class="start__single__item column__space--secondary">
+                            <div class="img__box">
+                                <img src="{% static 'assets/images/step/browse.png' %}" alt="Browse Properties">
+                                <div class="step__count">
+                                    <h4>01</h4>
+                                </div>
+                            </div>
+                            <h4>Browse Properties</h4>
+                            <p class="neutral-bottom">Select a property that fits your goal from our huge variety of
+                                hand-picked properties.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-4">
+                        <div class="start__single__item column__space--secondary">
+                            <div class="img__box arrow__container">
+                                <img src="{% static 'assets/images/step/invest.png' %}" alt="View Details &amp; Invest">
+                                <div class="step__count">
+                                    <h4>02</h4>
+                                </div>
+                            </div>
+                            <h4>View Details &amp; Invest</h4>
+                            <p class="neutral-bottom">View detailed metrics for that property like Rental Yield, etc.
+                                and invest like institutions.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-4">
+                        <div class="start__single__item">
+                            <div class="img__box">
+                                <img src="{% static 'assets/images/step/earn.png' %}" alt="Earn and Track">
+                                <div class="step__count">
+                                    <h4>03</h4>
+                                </div>
+                            </div>
+                            <h4>Earn and Track</h4>
+                            <p class="neutral-bottom">You have full visibility into the performance of your investment.
+                                Track your total current.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==== #start step section end ==== -->
+
+    <!-- ==== video popup section start ==== -->
+    <div class="video">
+        <div class="container">
+            <div class="video__area">
+                <img src="assets/images/video-illustration.png' %}" alt="Video Illustration">
+                <div class="video__btn">
+                    <a class="video__popup" href="{% static 'https://www.youtube.com/watch?v=LCihLrSehCo' %}" target="_blank" title="YouTube video player">
+                        <i class="fa-solid fa-play"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ==== #video popup section end ==== -->
+
+    <!-- ==== numbers section start ==== -->
+    <section class="numbers section__space bg__img" data-background="./assets/images/globe.png" style="background-image: url(&quot;./assets/images/globe.png&quot;);">
+        <div class="container">
+            <div class="numbers__area wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-6">
+                        <div class="content column__space">
+                            <h5 class="neutral-top">With Revest anyone can invest!</h5>
+                            <h2>Numbers Said
+                                More Than Words</h2>
+                            <p>our low minimums give you the flexibility to invest the right amount, at the right time,
+                                to meet your goals.</p>
+                            <a href="/rentalsapp/properties/" class="button button--effect">Start Exploring</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row d-flex align-items-start align-items-lg-center">
+                            <div class="col-sm-6">
+                                <div class="numbers__single shadow__effect">
+                                    <img src="{% static 'assets/images/platforms.png' %}" alt="platform">
+                                    <h3><span class="counter">3000</span>+</h3>
+                                    <p class="neutral-bottom">Investors Using Platform</p>
+                                </div>
+                                <div class="numbers__single shadow__effect__secondary">
+                                    <img src="{% static 'assets/images/returns.png' %}" alt="Returns">
+                                    <h3><span class="counter">18</span>%</h3>
+                                    <p class="neutral-bottom">Returns upto</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="numbers__single alt shadow__effect__secondary">
+                                    <img src="{% static 'assets/images/experience.png' %}" alt="Experience">
+                                    <h3 class="counter">45</h3>
+                                    <p class="neutral-bottom">Years Experience</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==== #numbers section end ==== -->
+
+    <!-- ==== testimonial section start ==== -->
+    <section class="testimonial section__space pos__rel over__hi bg__img" data-background="./assets/images/testimonial/dot-map.png" style="background-image: url(&quot;./assets/images/testimonial/dot-map.png&quot;);">
+        <div class="container">
+            <div class="testimonial__area">
+                <div class="section__header">
+                    <h5 class="neutral-top">Investors Trust Us</h5>
+                    <h2>Trusted by Over 40,000 Worldwide
+                        Customer since 2022</h2>
+                    <p class="neutral-bottom">We divide each property into shares so anyone can get started. Kindly
+                        check
+                        out our Investors say about revest.</p>
+                </div>
+                <div class="testimonial__item__wrapper slick-initialized slick-slider"><button type="button button--effect" class="slick-prev pull-left button arrow--button slick-arrow" style=""><i class="fa-solid fa-arrow-right-long"></i></button><div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 7920px; transform: translate3d(-3600px, 0px, 0px);"><div class="slick-slide slick-cloned" data-slick-index="-1" id="" aria-hidden="true" tabindex="-1" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div><div class="slick-slide" data-slick-index="0" aria-hidden="true" tabindex="-1" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div><div class="slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div><div class="slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div><div class="slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div><div class="slick-slide slick-current slick-active" data-slick-index="4" aria-hidden="false" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div><div class="slick-slide slick-cloned" data-slick-index="5" id="" aria-hidden="true" tabindex="-1" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div><div class="slick-slide slick-cloned" data-slick-index="6" id="" aria-hidden="true" tabindex="-1" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div><div class="slick-slide slick-cloned" data-slick-index="7" id="" aria-hidden="true" tabindex="-1" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div><div class="slick-slide slick-cloned" data-slick-index="8" id="" aria-hidden="true" tabindex="-1" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div><div class="slick-slide slick-cloned" data-slick-index="9" id="" aria-hidden="true" tabindex="-1" style="width: 696px;"><div><div class="testimonial__support" style="width: 100%; display: inline-block;">
+                        <div class="testimonial__item bg__img" data-background="./assets/images/testimonial/quote.png" style="background-image: url(&quot;./assets/images/testimonial/quote.png&quot;);">
+                            <div class="testimonial__author__ratings">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="tertiary">Very trustworthy and clearly platform to invest in real state. Safe
+                                investment with monthly payouts. Really recommended!</p>
+                            <div class="testimonial__author">
+                                <div class="testimonial__author__info">
+                                    <div class="avatar__wrapper">
+                                        <img src="{% static 'assets/images/testimonial/avatar.png' %}" alt="Allan Murphy">
+                                    </div>
+                                    <div>
+                                        <h5>Allan Murphy</h5>
+                                        <p class="neutral-bottom">United States</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div></div></div></div><button type="button button--effect" class="slick-next pull-right button arrow--button slick-arrow" style=""><i class="fa-solid fa-arrow-left-long"></i></button></div>
+            </div>
+        </div>
+    </section>
+    <!-- ==== #testimonial section end ==== -->
+
+    <!-- ==== market section start ==== -->
+    <section class="market section__space over__hi">
+        <div class="container">
+            <div class="market__area">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-6 col-xl-5">
+                        <div class="market__thumb thumb__rtl column__space">
+                            <img src="{% static 'assets/images/market-illustration.png' %}" alt="Explore the Market">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xl-6 offset-xl-1">
+                        <div class="content">
+                            <h5 class="neutral-top">Real exposure to the real estate market</h5>
+                            <h2>You Invest. Revest
+                                Does the Rest</h2>
+                            <p>Transparent Real Estate Investing Through Revest.Join us and
+                                experience a smarter,better way to invest in real estate</p>
+                            <a href="/rentalsapp/properties/" class="button button--effect">Start Exploring</a>
+                            <img src="{% static 'assets/images/arrow.png' %}" alt="Go to">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ==== #market section end ==== -->
+{% endfor %}
+
+    <!-- ==== footer section start ==== -->
+    <footer class="footer pos__rel over__hi">
+        <div class="container">
+            <div class="footer__newsletter">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-6">
+                        <div class="footer__newsletter__content column__space">
+                            <h3>Subscribe for updates</h3>
+                            <p>Stay on top of the latest blog posts, news and announcements</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xxl-5 offset-xxl-1">
+                        <div class="footer__newsletter__form">
+                            <form action="#" method="post">
+                                <div class="footer__newsletter__input__group">
+                                    <div class="input">
+                                        <input type="email" name="news__letter" id="newsLetterMail" placeholder="Enter Your Email" required="required">
+                                    </div>
+                                    <button type="submit" class="button button--effect">Subscribe</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__area section__space">
+                <div class="row">
+                    <div class="col-md-12 col-lg-4 col-xl-4">
+                        <div class="footer__intro">
+                            <a href="/rentalsapp/i/">
+                                <img src="{% static 'assets/images/logo-light.png' %}" alt="Revest" class="logo">
+                            </a>
+                            <p>Revest is a platform offering anyone the ability to invest and potentially earn money
+                                from property at the click of a button</p>
+                            <div class="social">
+                                <a href="{% static 'javascript:void(0)' %}">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+                                <a href="{% static 'javascript:void(0)' %}">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </a>
+                                <a href="{% static 'javascript:void(0)' %}">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="{% static 'javascript:void(0)' %}">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links footer__links--alt">
+                            <h5>Company</h5>
+                            <ul>
+                                <li>
+                                    <a href="/rentalsapp/about-us/">About Us</a>
+                                </li>
+                                <li>
+                                    <a href="/rentalsapp/career/">Careers</a>
+                                </li>
+                                <li>
+                                    <a href="/rentalsapp/blog/">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="/rentalsapp/contact-us/">Contact Us</a>
+                                </li>
+                                <li class="neutral-bottom">
+                                    <a href="/rentalsapp/affiliate-program/">Affiliate</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links footer__links--alt">
+                            <h5>Invest</h5>
+                            <ul>
+                                <li>
+                                    <a href="/rentalsapp/properties/">Browse Properties</a>
+                                </li>
+                                <li>
+                                    <a href="/rentalsapp/how-it-works/">How it works</a>
+                                </li>
+                                <li>
+                                    <a href="/rentalsapp/loan-application/">Loan Application </a>
+                                </li>
+                                <li>
+                                    <a href="/rentalsapp/property-alert/">Property Alerts</a>
+                                </li>
+                                <li class="neutral-bottom">
+                                    <a href="/rentalsapp/support/">FAQs</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links footer__links--alt--two">
+                            <h5>Insights</h5>
+                            <ul>
+                                <li>
+                                    <a href="/rentalsapp/support/">Help Center</a>
+                                </li>
+                                <li>
+                                    <a href="/rentalsapp/list-your-property/">List Your Property</a>
+                                </li>
+                                <li class="neutral-bottom">
+                                    <a href="/rentalsapp/loyality-program/">Loyality program </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links">
+                            <h5>Legal</h5>
+                            <ul>
+                                <li>
+                                    <a href="/rentalsapp/privacy-policy/">Privacy Policy</a>
+                                </li>
+                                <li>
+                                    <a href="/rentalsapp/terms-conditions/">Term &amp; Conditions</a>
+                                </li>
+                                <li>
+                                    <a href="/rentalsapp/cookie-policy/">Cookie Policy</a>
+                                </li>
+                                <li class="neutral-bottom">
+                                    <a href="/rentalsapp/key-risks/">Key Risks</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__credit">
+                <div class="row d-flex align-items-center">
+                    <div class="col-sm-9 order-1 order-sm-0">
+                        <div class="footer__copyright">
+                            <p>Copyright © Revest | Designed by <a href="{% static 'https://themeforest.net/user/pixelaxis' %}">Pixelaxis</a></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="footer__language">
+                            <select class="language-select" style="display: none;">
+                                <option value="english">En</option>
+                                <option value="australia">Aus</option>
+                                <option value="brazil">Bra</option>
+                                <option value="argentina">Arg</option>
+                            </select><div class="nice-select language-select" tabindex="0"><span class="current">En</span><ul class="list"><li data-value="english" class="option selected">En</li><li data-value="australia" class="option">Aus</li><li data-value="brazil" class="option">Bra</li><li data-value="argentina" class="option">Arg</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer__animation">
+            <img src="{% static 'assets/images/footer/footer__left__circle.png' %}" alt="Circle" class="left__circle">
+            <img src="{% static 'assets/images/footer/footer__right__circle.png' %}" alt="Circle" class="right__circle">
+            <img src="{% static 'assets/images/footer/footer__home___illustration.png' %}" alt="Home" class="home__illustration">
+        </div>
+    </footer>
+    <!-- ==== #footer section end ==== -->
+
+    <!-- Scroll To Top -->
+    <a href="{% static 'javascript:void(0)' %}" class="scrollToTop">
+        <i class="fa-solid fa-angles-up"></i>
+    </a>
+
+    <!-- ==== js dependencies start ==== -->
+
+    <!-- jquery -->
+    <script src="{% static 'assets/vendor/jquery/jquery-3.6.0.min.js' %}"></script>
+    <!-- bootstrap five js -->
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- nice select js -->
+    <script src="{% static 'assets/vendor/nice-select/js/jquery.nice-select.min.js' %}"></script>
+    <!-- magnific popup js -->
+    <script src="{% static 'assets/vendor/magnific-popup/js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- slick js -->
+    <script src="{% static 'assets/vendor/slick/js/slick.js' %}"></script>
+    <!-- shuffle js -->
+    <script src="{% static 'assets/vendor/shuffle/shuffle.min.js' %}"></script>
+    <!-- jquery downcount timer -->
+    <script src="{% static 'assets/vendor/downcount/jquery.downCount.js' %}"></script>
+    <!-- waypoints js -->
+    <script src="{% static 'assets/vendor/waypoints-js/jquery.waypoints.min.js' %}"></script>
+    <!-- counter up js -->
+    <script src="{% static 'assets/vendor/counter-js/jquery.counterup.min.js' %}"></script>
+    <!-- apex chart js -->
+    <script src="{% static 'assets/vendor/apex-chart/apexcharts.min.js' %}"></script>
+    <!-- wow js -->
+    <script src="{% static 'assets/vendor/wow/wow.min.js' %}"></script>
+
+    <!-- ==== js dependencies end ==== -->
+
+    <!-- plugin js -->
+    <script src="{% static 'assets/js/plugin.js' %}"></script>
+    <!-- main js -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+
+
+	<svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline>
+	<path id="SvgjsPath1004" d="M0 0 "></path>
+	</svg>
+	</body>
+	</html>
