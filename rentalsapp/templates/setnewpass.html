@@ -1,0 +1,315 @@
+{% load static %}
+<html lang="en-US">
+<head>
+    <!-- required meta -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- #favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+    <!-- #title -->
+    <title>Revest : Real Estate Investment For Everyone</title>
+    <!-- #keywords -->
+    <meta name="keywords" content="Real Estate, Investment, Properties, Rent">
+    <!-- #description -->
+    <meta name="description" content="Real Estate Investment For Everyone">
+    <!-- #author -->
+    <meta name="author" content="Pixelaxis">
+
+    <!-- ==== css dependencies start ==== -->
+
+    <!-- bootstrap five css -->
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <!-- font awesome six css -->
+    <link rel="stylesheet" href="{% static 'all.min.css' %}">
+    <!-- nice select css -->
+    <link rel="stylesheet" href="{% static 'nice-select.css' %}">
+    <!-- magnific popup css -->
+    <link rel="stylesheet" href="{% static 'magnific-popup.css' %}">
+    <!-- slick css -->
+    <link rel="stylesheet" href="{% static '/slick.css' %}">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'animate.css' %}">
+
+    <!-- ==== css dependencies end ==== -->
+
+    <!-- main css -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+</head>
+
+<body>
+
+  <!-- ==== header start ==== -->
+
+  <header class="header">
+      <nav class="navbar navbar-expand-xl">
+          <div class="container">
+              <a class="navbar-brand" href="/rentalsapp/">
+                  <img src="{% static 'assets/images/logo2.png' %}" alt="Logo" style="height:50px;" class="logo">
+              </a>
+              <div class="navbar__out order-2 order-xl-3">
+                    <div class="nav__group__btn">
+                        <ul class="navbar-nav">
+                            <li><a href="/rentalsapp/login/" class="log d-none d-sm-block"> Log In </a></li>
+                            <li></li><a href="/rentalsapp/register/" class="button button--effect d-none d-sm-block"> Join Now <i class="fa-solid fa-arrow-right-long"></i></a></li>
+                        </ul>
+                    </div>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle Primary Nav">
+                      <span class="icon-bar top-bar"></span>
+                      <span class="icon-bar middle-bar"></span>
+                      <span class="icon-bar bottom-bar"></span>
+                  </button>
+              </div>
+          </div>
+      </nav>
+  </header>
+
+  <!-- ==== #header end ==== -->
+
+    <!-- ==== dashboard section start ==== -->
+    <div class="dashboard section__space__bottom">
+        
+		<div class="container">
+            <div class="dashboard__area">
+                
+				<div class="row">
+					
+                    <div class="col-xxl-9">
+					
+                        <div class="main__content">
+                            
+							
+                            <div class="main__content-dashboard">
+                                
+								<div class="account-info">
+                                    <div class="account-content_wrapper">
+
+                                        <div class="account-content" id="security" style="display: none;">
+                                            <div class="two-factor-wrapper">
+                                                <div class="two-factor-content">
+                                                    <h6>Two Factor Authentication</h6>
+                                                    <p>Two-Factor Authentication (2FA) can be used to help protect your
+                                                        account</p>
+                                                </div>
+                                                <a href="#" class="button button--effect">Enable</a>
+                                            </div>
+                                            <div class="change__pass">
+                                                <div class="row neutral-row">
+                                                    <div class="col-md-6">
+                                                        <div class="change__pass-content column__space">
+                                                            <h5>Change Password</h5>
+                                                            <p>You can always change your password for security reasons
+                                                                or reset your password in case you forgot it.</p>
+                                                            <a href="#" class="button button--effect">Forgot
+                                                                Password?</a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <span style="color:red"> {{ error }}</span>
+                                                        <form action="/rentalsapp/resetpassrecord/{{id}}" name="change__pass" method="post">
+                                                        {% csrf_token %}
+                                                            <div class="input input--secondary">
+                                                                <label for="newPass">New Password</label>
+                                                                <input type="password" name="reset_pass" id="newPass" placeholder="New Password" required="required">
+                                                            </div>
+                                                            <div class="input input--secondary">
+                                                                <label for="conNewPass">Confirm New Password</label>
+                                                                <input type="password" name="con_reset_pass" id="conNewPass" placeholder="Confirm Password" required="required">
+                                                            </div>
+                                                            <div>
+                                                                <button type="submit" class="button button--effect">Update
+                                                                    Password</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>  
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    <!-- ==== #dashboard section end ==== -->
+	</div>
+    <!-- ==== footer section start ==== -->
+    <footer class="footer pos__rel over__hi">
+        <div class="container">
+            <div class="footer__newsletter">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-6">
+                        <div class="footer__newsletter__content column__space">
+                            <h3>Subscribe for updates</h3>
+                            <p>Stay on top of the latest blog posts, news and announcements</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xxl-5 offset-xxl-1">
+                        <div class="footer__newsletter__form">
+                            <form action="#" method="post">
+                                <div class="footer__newsletter__input__group">
+                                    <div class="input">
+                                        <input type="email" name="news__letter" id="newsLetterMail" placeholder="Enter Your Email" required="required">
+                                    </div>
+                                    <button type="submit" class="button button--effect">Subscribe</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__area section__space">
+                <div class="row">
+                    <div class="col-md-12 col-lg-4 col-xl-4">
+                        <div class="footer__intro">
+                            <a href="/rentalsapp/i/">
+                                <img src="{% static 'assets/images/logo-light.png' %}" alt="Revest" class="logo">
+                            </a>
+                            <p>Revest is a platform offering anyone the ability to invest and potentially earn money
+                                from property at the click of a button</p>
+                            <div class="social">
+                                <a href="{% static 'javascript:void(0)' %}">
+                                    <i class="fa-brands fa-facebook-f"></i>
+                                </a>
+                                <a href="{% static 'javascript:void(0)' %}">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </a>
+                                <a href="{% static 'javascript:void(0)' %}">
+                                    <i class="fa-brands fa-instagram"></i>
+                                </a>
+                                <a href="{% static 'javascript:void(0)' %}">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links footer__links--alt">
+                            <h5>Nigeria</h5>
+                            <ul>
+                                <li class="neutral-bottom">
+                                    <a href="#">
+                                        Head Office:<br>
+                                        The Proxynet House, 5B, Adedeji Close, off Opebi Road, Ikeja, Lagos, Nigeria.<br>
+                                        Telephone No:<br> +234 7032647755<br><br>
+                                        ABUJA Office:<br>
+                                        House 21, Street 693, Off Road 69, Gwarimpa, Abuja, Nigeria.<br>
+                                        Telephone no:<br> +234 9031829347
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links footer__links--alt">
+                            <h5>Ghana</h5>
+                            <ul>
+                                <li class="neutral-bottom">
+                                    <a href="#">
+                                        No 18 Nii Klu Osae Avenue, Off American House, Accra, Ghana.
+                                        Telephone no: +233302546703
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links footer__links--alt--two">
+                            <h5>Cote d'Ivoire</h5>
+                            <ul>
+                                <li class="neutral-bottom">
+                                    <a href="#">
+                                        1st floor of the SIAA Building, Cocody 2 Plateaux, 7e Tranche Road, Vase d'Honneur Crossroads, Abidjan, Ivory Coast
+                                        Telephone no: +22522468434
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links">
+                            <h5>Dubai</h5>
+                            <ul>
+                                <li class="neutral-bottom">
+                                    <a href="#">Building A2, Unit 101, Dubai Silicon Oasis, DDP, Dubai, United Arab Emirates</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__credit">
+                <div class="row d-flex align-items-center">
+                    <div class="col-sm-9 order-1 order-sm-0">
+                        <div class="footer__copyright">
+                            <p>Copyright © Revest | Designed by <a href="{% static 'https://themeforest.net/user/pixelaxis' %}">Pixelaxis</a></p>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="footer__language">
+                            <select class="language-select" style="display: none;">
+                                <option value="english">En</option>
+                                <option value="australia">Aus</option>
+                                <option value="brazil">Bra</option>
+                                <option value="argentina">Arg</option>
+                            </select><div class="nice-select language-select" tabindex="0"><span class="current">En</span><ul class="list"><li data-value="english" class="option selected">En</li><li data-value="australia" class="option">Aus</li><li data-value="brazil" class="option">Bra</li><li data-value="argentina" class="option">Arg</li></ul></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer__animation">
+            <img src="{% static 'assets/images/footer/footer__left__circle.png' %}" alt="Circle" class="left__circle">
+            <img src="{% static 'assets/images/footer/footer__right__circle.png' %}" alt="Circle" class="right__circle">
+            <img src="{% static 'assets/images/footer/footer__home___illustration.png' %}" alt="Home" class="home__illustration">
+        </div>
+    </footer>
+    <!-- ==== #footer section end ==== -->
+
+    <!-- Scroll To Top -->
+    <a href="{% static 'javascript:void(0)' %}" class="scrollToTop">
+        <i class="fa-solid fa-angles-up"></i>
+    </a>
+
+    <!-- ==== js dependencies start ==== -->
+
+    <!-- jquery -->
+    <script src="{% static 'assets/vendor/jquery/jquery-3.6.0.min.js' %}"></script>
+    <!-- bootstrap five js -->
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- nice select js -->
+    <script src="{% static 'assets/vendor/nice-select/js/jquery.nice-select.min.js' %}"></script>
+    <!-- magnific popup js -->
+    <script src="{% static 'assets/vendor/magnific-popup/js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- slick js -->
+    <script src="{% static 'assets/vendor/slick/js/slick.js' %}"></script>
+    <!-- shuffle js -->
+    <script src="{% static 'assets/vendor/shuffle/shuffle.min.js' %}"></script>
+    <!-- jquery downcount timer -->
+    <script src="{% static 'assets/vendor/downcount/jquery.downCount.js' %}"></script>
+    <!-- waypoints js -->
+    <script src="{% static 'assets/vendor/waypoints-js/jquery.waypoints.min.js' %}"></script>
+    <!-- counter up js -->
+    <script src="{% static 'assets/vendor/counter-js/jquery.counterup.min.js' %}"></script>
+    <!-- apex chart js -->
+    <script src="{% static 'assets/vendor/apex-chart/apexcharts.min.js' %}"></script>
+    <!-- wow js -->
+    <script src="{% static 'assets/vendor/wow/wow.min.js' %}"></script>
+
+    <!-- ==== js dependencies end ==== -->
+
+    <!-- plugin js -->
+    <script src="{% static 'assets/js/plugin.js' %}"></script>
+    <!-- main js -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+	<svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline>
+	<path id="SvgjsPath1004" d="M0 0 "></path>
+	</svg>
+
+</body>
+</html>

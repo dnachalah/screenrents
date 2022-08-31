@@ -10,7 +10,7 @@
  01. Abstracts
      1.1 --> Mixins
      1.2 --> Variables
-    
+
  02. Base
      2.1 --> Reset
      2.2 --> Typography
@@ -112,23 +112,23 @@
      41. error section styles start
      ------------------------------------------------------
      42. footer styles start
-     
+
      =========================
 ============== */
-/* ==== 
+/* ====
  --------- (1.1) mixins start ---------
  ==== */
-/* ==== 
+/* ====
  --------- (1.1) mixins end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (1.2) variables start ---------
  ==== */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-/* ==== 
+/* ====
  --------- (1.2) variables end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (2.1) reset styles start ---------
  ==== */
 * {
@@ -263,10 +263,10 @@ main {
   display: block;
 }
 
-/* ==== 
+/* ====
  --------- (2.1) reset styles end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (2.2) typography styles start ---------
  ==== */
 p,
@@ -866,10 +866,10 @@ button:hover {
   outline: 0px;
 }
 
-/* ==== 
+/* ====
  --------- (2.2) typography styles end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (2.3) global styles start ---------
  ==== */
 .section__space {
@@ -1585,16 +1585,16 @@ button:hover {
   color: #ffffff;
 }
 
-/* ==== 
+/* ====
  --------- (2.3) global styles end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (3.1) preloader styles start ---------
  ==== */
-/* ==== 
+/* ====
  --------- (3.1) preloader styles end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (3.2) buttons styles start ---------
  ==== */
 .button {
@@ -1755,10 +1755,10 @@ button:hover {
   }
 }
 
-/* ==== 
+/* ====
  --------- (3.2) buttons styles end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (3.3) forms styles start ---------
  ==== */
 .input input {
@@ -2214,10 +2214,10 @@ button:hover {
   height: auto;
 }
 
-/* ==== 
+/* ====
  --------- (3.3) forms styles end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (4.1) header styles start ---------
  ==== */
 header {
@@ -3070,10 +3070,10 @@ header {
           box-shadow: 0px 4px 24px 0px rgba(19, 33, 110, 0.25);
 }
 
-/* ==== 
+/* ====
  --------- (4.1) header styles end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (4.2) hero section styles start ---------
  ==== */
 .hero {
@@ -3320,10 +3320,10 @@ header {
   margin-top: 35px;
 }
 
-/* ==== 
+/* ====
  --------- (4.2) hero section styles end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (4.3) banner styles start ---------
  ==== */
 .banner {
@@ -3590,10 +3590,10 @@ header {
   }
 }
 
-/* ==== 
+/* ====
  --------- (4.3) banner styles end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (4.4) all sections styles start ---------
  ==== */
 .property__filter {
@@ -13898,8 +13898,8 @@ header {
 .account-content .investment-table tr td:nth-last-of-type(1) {
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
+  /* display: flex; */
+  /* -webkit-box-align: center; */
       -ms-flex-align: center;
           align-items: center;
   -webkit-box-pack: center;
@@ -14073,10 +14073,10 @@ header {
   }
 }
 
-/* ==== 
+/* ====
  --------- (4.4) all sections styles end ---------
  ==== */
-/* ==== 
+/* ====
  --------- (4.5) footer styles start ---------
  ==== */
 .footer {
@@ -14603,7 +14603,7 @@ header {
   color: #4e0dff;
 }
 
-/* ==== 
+/* ====
  --------- (4.5) footer styles end ---------
  ==== */
 /*# sourceMappingURL=style.css.map */

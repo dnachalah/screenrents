@@ -24,27 +24,26 @@
         <th>Lastname</th>
         <th>Firstname</th>
         <th>Email</th>
-        <th>Phone</th>
-        <th>Dob</th>
-        <th>Age</th>
         <th>Password</th>
+        <th>Profile Picture</th>
         <th>delete</th>
         <th>Edit Username and Password</th>
     </tr>
     {% for x in mymembers %}
     <tr>
         <td>{{ x.id }}</td>
-        <td>{{ x.lastName }}</td>
-        <td>{{ x.firstName }}</td>
-        <td>{{ x.registrationMail }}</td>
-        <td>{{x.regiPass}}</td>
-        <td><a href="/firstApp/delete/{{x.id}}">delete</a></td>
-        <td><a href="/firstApp/edit/{{x.id}}">Edit Username and Password</a></td>
+        <td>{{ x.lastname }}</td>
+        <td>{{ x.firstname }}</td>
+        <td>{{ x.email }}</td>
+        <td>{{x.password}}</td>
+        <td>{{x.profile_picture}}</td>
+        <td><a href="/rentalsapp/delete/{{x.id}}">delete</a></td>
+        <td><a href="/rentalsapp/edit/{{x.id}}">Edit Username and Password</a></td>
 
     </tr>
     {% endfor %}
 </table>
 
 <p>
-    <a href="/firstApp/add/">Add member</a>
+    <a href="/rentalsapp/add/">Add member</a>
 </p>

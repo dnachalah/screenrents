@@ -168,7 +168,8 @@
 
     // account tab
     $(".account-content").hide();
-    $(".account-content:first").show();
+    //$(".account-content:first").show();
+
     $(".account-info__btn").on("click", function () {
       $(".account-info__btn").removeClass("account-info__btn-active");
       $(this).addClass("account-info__btn-active");

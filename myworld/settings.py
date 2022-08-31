@@ -15,14 +15,17 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'rentalsapp\\templates\\')
+APP_NAME = "PRORENT"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-^a$painlg$4a32obztg^xyno8#iuz%o*^srxdouc)tt^@4=o++'
-
+EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
+MAILJET_API_KEY = 'd3a921c220c205ae2a14f4ce4d3f545c'
+MAILJET_API_SECRET = '23dc79679175647dd23ffc33e9f8f7ff'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -89,8 +92,8 @@ DATABASES = {
     }
 }
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
-MEDIA_URL = '/images/property/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/assets/images/')
+MEDIA_URL = 'assets/images/'
 
 
 # Password validation
