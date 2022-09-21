@@ -42,37 +42,72 @@
 
     <div class="wrapper bg__img" data-background="{% static './assets/images/registration-bg.png' %}" style="background-image: url(&quot;{% static './assets/images/registration-bg.png' %}&quot;);">
         <!-- ==== header start ==== -->
-        <header class="header header--secondary">
-            <nav class="navbar navbar-expand-xl">
-                <div class="container">
-                    <a class="navbar-brand" href="/rentalsapp/">
-                        <img src="{% static 'assets/images/logo.png' %}" alt="Logo" class="logo">
-                    </a>
-                    <div class="navbar__out order-2 order-xl-3">
-                        <div class="nav__group__btn">
-                            <a href="/rentalsapp/login/" class="log d-none d-sm-block"> Log In </a>
-                            <a href="/rentalsapp/register/" class="button button--effect d-none d-sm-block"> Join Now <i class="fa-solid fa-arrow-right-long"></i> </a>
-                        </div>
-                        <button class="navbar-toggler d-block d-sm-none" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle Primary Nav">
-                            <span class="icon-bar top-bar"></span>
-                            <span class="icon-bar middle-bar"></span>
-                            <span class="icon-bar bottom-bar"></span>
-                        </button>
-                    </div>
-                    <div class="collapse navbar-collapse order-3 order-xl-2" id="primaryNav">
+
+    <header class="header">
+        <nav class="navbar navbar-expand-xl">
+            <div class="container">
+                <a class="navbar-brand" href="/rentalsapp/">
+                    <img src="{% static 'assets/images/logo2.png' %}" alt="Logo" style="height:50px;" class="logo">
+                </a>
+                <div class="navbar__out order-2 order-xl-3">
+                    <div class="nav__group__btn">
+                        {% if adminnn == None %}
+                        <a href="/rentalsapp/login/" class="log d-none d-sm-block"> Log In </a>
+                        <a href="/rentalsapp/register/" class="button button--effect d-none d-sm-block"> Join Now <i class="fa-solid fa-arrow-right-long"></i> </a>
+                        {% endif %}
+                        {% if adminnn != None %}
                         <ul class="navbar-nav">
-                            <li class="nav-item d-block d-sm-none">
-                                <a href="/rentalsapp/login/" class="nav-link">Log In</a>
-                            </li>
-                            <li class="nav-item d-block d-sm-none">
-                                <a href="/rentalsapp/register/" class="button button--effect button--last">Join Now <i class="fa-solid fa-arrow-right-long"></i></a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarLoanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hello {{adminnn}}!
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarLoanDropdown">
+                                    <li><a class="dropdown-item" href="/rentalsapp/adminprofile/">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="/rentalsapp/admin/logout/">Log Out</a></li>
+                                </ul>
                             </li>
                         </ul>
+                        <a href="#" class="profile">
+                            {% if member != None %}
+                              <img src="{{BASE_DIR}}/static{{pp}}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
+                            {% endif %}
+                            {% if member == None %}
+                              <img src="{% static 'assets/images/profilepic/default.jpg' %}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
+                            {% endif %}
+                        </a>
+                        {% endif %}
                     </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle Primary Nav">
+                        <span class="icon-bar top-bar"></span>
+                        <span class="icon-bar middle-bar"></span>
+                        <span class="icon-bar bottom-bar"></span>
+                    </button>
                 </div>
-            </nav>
-        </header>
-        <!-- ==== #header end ==== -->
+                <div class="collapse navbar-collapse order-3 order-xl-2" id="primaryNav">
+                    <ul class="navbar-nav">
+                      <li class="nav-item">
+                          <a class="nav-link" href="/rentalsapp/">Home</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">About Us</a>
+                          <!-- <a class="nav-link" href="/rentalsapp/about_us/">About Us</a> -->
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/rentalsapp/contact/">Contact Us</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/rentalsapp/results/">Booking</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" target="_blank" href="http://promallshop.com/">Shop</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==== #header end ==== -->
 
         <!-- ==== registration section start ==== -->
         <section class="registration clear__top">
