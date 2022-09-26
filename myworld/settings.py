@@ -27,7 +27,7 @@ EMAIL_BACKEND = 'django_mailjet.backends.MailjetBackend'
 MAILJET_API_KEY = 'd3a921c220c205ae2a14f4ce4d3f545c'
 MAILJET_API_SECRET = '23dc79679175647dd23ffc33e9f8f7ff'
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
