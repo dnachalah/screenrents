@@ -8,7 +8,7 @@
     <!-- #favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
     <!-- #title -->
-    <title>Revest : Real Estate Investment For Everyone</title>
+    <title>PRORENT - Screen rentals and Video Conferencing Solutions</title>
     <!-- #keywords -->
     <meta name="keywords" content="Real Estate, Investment, Properties, Rent">
     <!-- #description -->
@@ -168,6 +168,7 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-lg-8">
                             <h2>Search Results</h2>
+                            <h3>{{not_found}}</h3>
                         </div>
                     </div>
                 </div>
@@ -192,21 +193,21 @@
                                                 {{ x.screenname }}
                                             </h4>
                                         </a>
-                                        <p style="text-transform: capitalize;"><i class="fa-solid fa-location-dot"></i> {{ x.short_description }}</p>
+                                        <p style="text-transform: capitalize;">{{ x.short_description }}</p>
                                     </div>
                                 </div>
-                               <!-- <div class="progress__type progress__type--two">
+                               <div class="progress__type progress__type--two">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <div class="project__info">
-                                        <p class="project__has"><span class="project__has__investors">119
-                                                Investors</span> |
+                                       <!-- <p class="project__has"><span class="project__has__investors">119
+                                                Investors</span> |</p> -->
                                         <p class="project__goal">
-                                            <i class="fa-solid fa-dollar-sign"></i> {{ x.price }}
+                                            NGN {{ x.price }}
                                         </p>
                                     </div>
-                                </div> -->
+                                </div>
                                 <div class="item__info">
                                     <div class="item__info__single">
                                         <p>Category</p>
@@ -247,7 +248,6 @@
         <p>Number of Pages: {{ screenns.paginator.num_pages }}</p>
         <hr> -->
         <br><br><br>
-   
 
         <div style="margin-top:50px" class="mt-10">
             <div class="row d-flex align-items-center">
@@ -277,8 +277,6 @@
               
             </div>
         </div>
-
-
 
     </section>
     <!-- ==== #featured properties section end ==== -->
@@ -320,17 +318,14 @@
                             <!-- <p>Revest is a platform offering anyone the ability to invest and potentially earn money
                                 from property at the click of a button</p> -->
                             <div class="social">
-                                <a href="#">
-                                    <i class="fa-brands fa-facebook-f"></i>
+                                <a href="https://www.facebook.com/search/top?q=proxynet%20communications" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-twitter"></i>
+                                <a href="https://www.instagram.com/proxynetcommltd/" target="_blank">
+                                    <i class="fab fa-instagram"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-linkedin-in"></i>
+                                <a href="https://www.linkedin.com/company/proxynet-group/" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
                                 </a>
                             </div>
                         </div>
@@ -395,16 +390,6 @@
                     <div class="col-sm-9 order-1 order-sm-0">
                         <div class="footer__copyright">
                             <p>Copyright © {{year}} | Designed by <a href="https://proxynetgroup.com/">Proxynet Communications</a></p>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="footer__language">
-                            <select class="language-select" style="display: none;">
-                                <option value="english">En</option>
-                                <option value="australia">Aus</option>
-                                <option value="brazil">Bra</option>
-                                <option value="argentina">Arg</option>
-                            </select><div class="nice-select language-select" tabindex="0"><span class="current">En</span><ul class="list"><li data-value="english" class="option selected">En</li><li data-value="australia" class="option">Aus</li><li data-value="brazil" class="option">Bra</li><li data-value="argentina" class="option">Arg</li></ul></div>
                         </div>
                     </div>
                 </div>

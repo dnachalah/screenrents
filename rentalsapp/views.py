@@ -12,6 +12,7 @@ from .models import screenbookings
 from .models import subscription
 from .models import categories
 from .models import brands
+from .models import transactions
 from datetime import date
 from datetime import datetime
 from django.db.models import Q
@@ -31,6 +32,7 @@ import codecs
 import io
 import os
 import time
+import datetime
 # import the mailjet wrapper
 
 # Get your environment Mailjet keys
@@ -289,7 +291,7 @@ def remove_screens(request, id=""):
     if z == None:
         return HttpResponseRedirect(reverse('admin_login'))
     else:    
-        pid = request.session['pic__id']
+        pid = request.session.get('pic__id')
         if request.POST:
             a = request.POST['pic__id']
             request.session['pic__id'] = a
@@ -527,89 +529,14 @@ def userstatusrecord(request,id):
                 member = Rentalsapp(status=sort, firstname=member['firstname'], lastname=member['lastname'], email=member['email'], password=member['password'], id=member['id'], profile_picture=member['profile_picture'],)
                 member.save()
                 print('member with g =',member)
-                
-                for x in screendetails:
-                    print(x)
-                    p = x['screen_id']
-                    print("p =",p)
-                    g = x['user_id']
-                    print("g =",g)
-                    detailss = screens.objects.values().get(id=x['screen_id'])
-                    print('detailss =',detailss)
-                    x['screenname'] = detailss['screenname']
-                    users = Rentalsapp.objects.all().values().get(id=x['user_id'])
-                    print('users =',users)
-                    x['firstname'] = users['firstname']
-                    y = x['firstname'].upper()
-                    print('user =',y)
-                    print(x['screenname'])
-                template = loader.get_template('admin_profile.html')
-                context = {
-                    'details':details,
-                    'mymembers':mymembers,
-                    #'error': 'You have successfully booked your order',
-                    'member':member,
-                    'pp':pp,
-                    'year':year,
-                    'adminnn': adminnn,
-                    'adminn': adminn,
-                    'admins':admins,
-                    'screendetails':screendetails,
-                    'detailss':detailss,
-                    'users':users,
-                }
-                return HttpResponse(template.render(context, request))
+                return HttpResponseRedirect(reverse('adminprofile'))
             elif sort == 'Disabled':
                 member = Rentalsapp(status=sort, firstname=member['firstname'], lastname=member['lastname'], email=member['email'], password=member['password'], id=member['id'], profile_picture=member['profile_picture'],)
                 member.save()
                 print('member with g =',member)
-
-                for x in screendetails:
-                    print(x)
-                    p = x['screen_id']
-                    print("p =",p)
-                    g = x['user_id']
-                    print("g =",g)
-                    detailss = screens.objects.values().get(id=x['screen_id'])
-                    print('detailss =',detailss)
-                    x['screenname'] = detailss['screenname']
-                    users = Rentalsapp.objects.all().values().get(id=x['user_id'])
-                    print('users =',users)
-                    x['firstname'] = users['firstname']
-                    y = x['firstname'].upper()
-                    print('user =',y)
-                    print(x['screenname'])
-                template = loader.get_template('admin_profile.html')
-                context = {
-                    'details':details,
-                    'mymembers':mymembers,
-                    #'error': 'You have successfully booked your order',
-                    'member':member,
-                    'pp':pp,
-                    'adminnn': adminnn,
-                    'adminn': adminn,
-                    'admins':admins,
-                    'screendetails':screendetails,
-                    'detailss':detailss,
-                    'users':users,
-                }
-                return HttpResponse(template.render(context, request))
+                return HttpResponseRedirect(reverse('adminprofile'))
             else:
-                template = loader.get_template('admin_profile.html')
-                context = {
-                    'error': 'Date for return cannot be before date for pickup.',
-                    'mymembers':mymembers,
-                    'details':details,
-                    'member':member,
-                    'pp':pp,
-                    'adminnn': adminnn,
-                    'adminn': adminn,
-                    'admins':admins,
-                    'screendetails':screendetails,
-                    'detailss':detailss,
-                    'users':users,
-                }
-                return HttpResponse(template.render(context, request))
+                return HttpResponseRedirect(reverse('adminprofile'))
         else:
             return HttpResponseRedirect(reverse('userstatusrecord'))
 
@@ -832,6 +759,15 @@ def statusedit(request, id):
 def statuseditrecord(request,id):
     details = screens.objects.all().values()
     print('details =',details)
+    for y in details:
+        pp = y['picture']
+        print("pic=",pp)
+        ppl = list(pp.split(","))
+        print("pplist =", ppl)
+        yfirst = ppl[0]
+        print("yfirst =", yfirst)
+        y['first']=yfirst
+    print("ydetails =",details)
     mymembers = Rentalsapp.objects.all().values()
     print('mymembers =',mymembers)
     admins = admin.objects.all().values()
@@ -902,8 +838,9 @@ def statuseditrecord(request,id):
                     email_from = ""
                     name_from = "PRORENT admin"
                     email_to = users['email']
+                    adminjson = []
                     print("check for them: ",subject, message, email_from, name_from, email_to)
-                    mailer(email_from, name_from, email_to, subject, message,)
+                    mailer(email_from, name_from, email_to, subject, message, adminjson,)
                 template = loader.get_template('admin_profile.html')
                 context = {
                     'details':details,
@@ -999,6 +936,9 @@ def loginlog(request):
     form = Rentalsapp.objects.all().values()
     error ="";
 
+    homepage = request.session.get('homepage')
+    print("homepage =", homepage)
+
 
     try:
         mymembers = Rentalsapp.objects.all().values().order_by('lastname')
@@ -1039,7 +979,7 @@ def loginlog(request):
             'error': "Invalid username or password.",
         }
         return HttpResponse(template.render(context, request))
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse(homepage))
 
 
 def logout(request):
@@ -1141,14 +1081,16 @@ def resetpassrecord(request, id):
                 template = loader.get_template('setnewpass.html')
                 context = {
                     'error': 'Passwords do not match',
+                    'id':id,
                     #'member': member
                 }
                 return HttpResponse(template.render(context, request))
             else:
-                member = Rentalsapp(password=i) #id=k,)
+                #member = Rentalsapp(password=i)
+                member = Rentalsapp(firstname=member['firstname'], lastname=member['lastname'], email=member['email'], password=i, status=member['status'], id=member['id'], profile_picture=member['profile_picture'],)
                 member.save()
                 print("member2 =",member)
-                print("new password =", member.password)
+                #print("new password =", member['password'])
                 return HttpResponseRedirect(reverse('login'))
         except Rentalsapp.DoesNotExist:
             template = loader.get_template('setnewpass.html')
@@ -1162,6 +1104,11 @@ def resetpassrecord(request, id):
     
 
 def contact(request):
+    home = 'contact'
+    request.session['homepage'] = home
+    homepage = request.session['homepage']
+    print("homepage =", homepage)
+
     k = request.session.get('member_id')
     print("k =", k)
     if k != None:
@@ -1199,6 +1146,11 @@ def contact(request):
     return HttpResponse(template.render(context, request))
 
 def contactrecord(request):
+    home = 'contact'
+    request.session['homepage'] = home
+    homepage = request.session['homepage']
+    print("homepage =", homepage)
+
     reQ = request.session.get('username')
     print(reQ)
     if reQ != None:
@@ -1391,7 +1343,13 @@ def addrecord(request):
         return HttpResponseRedirect(reverse('index'))
 
 def index(request):
+    home = 'index'
+    request.session['homepage'] = home
+    homepage = request.session['homepage']
+    print("homepage =", homepage)
+
     reQ = request.session.get('username')
+
     print(reQ)
     if reQ != None:
         reQ = reQ.upper()
@@ -1444,6 +1402,7 @@ def index(request):
     else:
         esub = esub
     template = loader.get_template('index.html')
+    #template2 = loader.get_template('contact.html')
     context = {
         'screenns':screenns,
         'reQ':reQ,
@@ -1456,12 +1415,18 @@ def index(request):
         'brandds':brandds,
         'html':html,
         'errorsub': esub,
+        #'footer':template2
     }
 
     return HttpResponse(template.render(context, request))
 
 #This code displays the search results form.
 def results(request):
+    home = 'results'
+    request.session['homepage'] = home
+    homepage = request.session['homepage']
+    print("homepage =", homepage)
+
     id = ""
     mymembers = Rentalsapp.objects.all().values()
     print(mymembers)
@@ -1473,6 +1438,7 @@ def results(request):
     brandds = brands.objects.all().values()
     screenns = screens.objects.all().values()
     print("screenns1 =",screenns)
+    not_found = ''
     for y in screenns:
         pp = y['picture']
         print("pic=",pp)
@@ -1519,21 +1485,40 @@ def results(request):
             print("search1 =", search)
             screenns = screens.objects.filter(screenname__icontains=search).values() | screens.objects.filter(description__icontains=search).values()# & screens.objects.filter(category_id__exact=categorry).values() & screens.objects.filter(brand_id__exact=brrand).values()
             print("filtered screens =",screenns)
+            if screenns == '':
+                not_found = "There's no result for " + search + "."
+            else:
+                not_found = not_found
         elif search != '' and categorry != 'Select Category' and brrand == 'Select Brand':
             print('yo!')
             print("search2 =", search)
             screenns = screens.objects.filter(screenname__icontains=search).values() & screens.objects.filter(description__icontains=search).values() & screens.objects.filter(category_id__exact=categorry).values()# | screens.objects.filter(brand_id__exact=brrand).values()
             print("filtered screens =",screenns)
+            if screenns == '':
+                not_found = "There's no result for " + search + "."
+            else:
+                not_found = not_found
         elif search != '' and brrand != 'Select Brand' and categorry == 'Select Category':
             print('yo!!')
             print("search3 =", search)
             screenns = screens.objects.filter(screenname__icontains=search).values() & screens.objects.filter(description__icontains=search).values() & screens.objects.filter(brand_id__exact=brrand).values()# | screens.objects.filter(category_id__exact=categorry).values()
             print("filtered screens =",screenns)
+            if screenns == '':
+                not_found = "There's no result for " + search + "."
+            else:
+                not_found = not_found
         elif search != '' and brrand != 'Select Brand' and categorry != 'Select Category':
             print('yo!!')
             print("search3 =", search)
             screenns = screens.objects.filter(screenname__icontains=search).values() & screens.objects.filter(description__icontains=search).values() & screens.objects.filter(brand_id__exact=brrand).values() & screens.objects.filter(category_id__exact=categorry).values()
             print("filtered screens =",screenns)
+            if len(screenns) > 0:
+                print("no screennns")
+                not_found = not_found
+            else:
+                print("screennns")
+                not_found = "There's no result for " + search + "."
+                print("not_found =", not_found)
         elif search == '' and categorry == 'Select Category' and brrand == 'Select Brand':
             print('yo!!!')
             print("search4 =", search)
@@ -1562,7 +1547,7 @@ def results(request):
         print("branddss =", branddss)
     print("fscreenns =",screenns)
     # Set up pagination
-    p = Paginator(screenns, 10)
+    p = Paginator(screenns, 5)
     page = request.GET.get('page')
     screenns = p.get_page(page)
     print("pagscrn =", screenns)
@@ -1575,23 +1560,13 @@ def results(request):
     print(reQ)
     cat = request.session.get('select1')
     print("cat =", cat)
-    '''
-    if cat != "Select Category":
-        categoryss = categories.objects.values().get(id=cat)
-    else:
-        cat = categoryss['category']
-    print("cat2 =", cat)
-    '''
     brnd = request.session.get('select2')
     print("brndd =", brnd)
-    '''
-    if brnd != "Select Brand":
-        branddss = brands.objects.values().get(id=brnd)
-    else:
-        brnd = branddss['brand']
-    print("brnd2 =", brnd)
-    '''
     srch = request.session.get('property__search')
+    if srch == None:
+        srch = ""
+    else:
+        srch = srch
     print("search33 =", srch)
     html = "results"
     esub = request.session.get('errorsub')
@@ -1617,12 +1592,29 @@ def results(request):
         'srch':srch,
         'html':html,
         'errorsub': esub,
+        'not_found':not_found,
         #'errorsub':'Enter a valid email',
     }
     return HttpResponse(template.render(context, request))
 
-def property_details(request, id):
+def property_details(request, id=""):
     try:
+        sid = request.session.get('scrn__id')
+        request.session['scrn__id'] = id
+        sid = request.session['scrn__id']
+        print("sid =", sid)
+        if id == "":
+            id = sid
+            print('id from sid =',id)
+        else:
+            id = id
+            print('id from sid2 =',id)
+        
+        home = 'property_details'
+        request.session['homepage'] = home
+        homepage = request.session['homepage']
+        print("homepage =", homepage)
+
         mymembers = Rentalsapp.objects.all().values()
         print(mymembers)
         print(id)
@@ -1644,6 +1636,19 @@ def property_details(request, id):
         print("piczz =", piczz)
         d = str(date.today())
         print(d)
+        c = details['price']
+        c = float(c)
+        print("c =", c)
+        print("c + 2000 =", c + 2000)
+        if c < 2500:
+            tc = (int(c) * 3/200)
+        elif c >= 2500 and c < 126667:
+            tc = (int(c) * 3/200) + 100
+        elif c >= 126667:
+            tc = 2000
+        else:
+            pass
+        tac = c + tc
         pp = request.session.get('profilepic')
         print('profile = ',pp)
         reQ = request.session.get('username')
@@ -1665,6 +1670,8 @@ def property_details(request, id):
             'member': member,
             'reQ':reQ,
             'pp':pp,
+            'tc':tc,
+            'tac':tac,
             'd':d,
             'piczz':piczz,
             'year':year,
@@ -1677,6 +1684,12 @@ def property_details(request, id):
 
 def bookorder(request, id):
     try:
+        '''
+        home = 'property_details'
+        request.session['homepage'] = home
+        homepage = request.session['homepage']
+        print("homepage =", homepage)
+        '''
         pp = request.session.get('profilepic')
         print('profile = ',pp)
         reQ = request.session.get('username')
@@ -1714,12 +1727,16 @@ def bookorder(request, id):
             l = request.session.get('member_id')
             m = date.today()
             n = request.POST['status']
+            o = request.POST['email']
+            p = request.POST['amount']
             print("h =",h)
             print("i =",i)
             print("j =",j)
             print("i =",l)
             print("m =",m)
             print("n =",n)
+            print("o =",o)
+            print("p =",p)
 
             if h > i:
                 template = loader.get_template('property-details.html')
@@ -1729,7 +1746,7 @@ def bookorder(request, id):
                 }
                 return HttpResponse(template.render(context, request))
             else:
-                screendetails = screenbookings(date_for_pickup=h, date_for_return=i, screen_id=j, user_id=l, date_added=m, status=n,)
+                screendetails = screenbookings(date_for_pickup=h, date_for_return=i, screen_id=j, user_id=l, date_added=m, status=n, user_email=o, screen_price=p,)
                 screendetails.save()
                 print("screendetails =",screendetails)
                 adminl = []
@@ -1775,6 +1792,7 @@ def bookorder(request, id):
                     'mymembers':mymembers,
                     'error': 'You have successfully booked your order',
                     'reQ':reQ,
+                    'member':member,
                     'pp':pp,
                     'year':year,
                     'html':html,
@@ -1792,6 +1810,12 @@ def bookorder(request, id):
 
 def bookorderedit(request, id):
     try:
+        '''
+        home = 'property_details'
+        request.session['homepage'] = home
+        homepage = request.session['homepage']
+        print("homepage =", homepage)
+        '''
         reQ = request.session.get('username')
         print(reQ)
         if reQ != None:
@@ -1811,16 +1835,16 @@ def bookorderedit(request, id):
         print("member =",member)
         screenns = screens.objects.all().values()
         print(screenns)
-        details = screens.objects.values().get(id=id)
+        screendetails = screenbookings.objects.all().values().get(id=id)
+        print("bookeredit screendetails =",screendetails)
+        print(screendetails['id'])
+        details = screens.objects.values().get(id=screendetails['screen_id'])
         print('bkorderedit details =',details)
         picz = details['picture']
         piczz = picz.split(",")
         print("piczz =", piczz)
         d = str(date.today())
         print(d)
-        screendetails = screenbookings.objects.all().values().get(screen_id=id)
-        print("bookeredit screendetails =",screendetails)
-        print(screendetails['id'])
         pp = request.session.get('profilepic')
         print('profile = ',pp)
         
@@ -1857,6 +1881,12 @@ def bookorderedit(request, id):
 
 def bookordereditrecord(request,id):
     try:
+        '''
+        home = 'property_details'
+        request.session['homepage'] = home
+        homepage = request.session['homepage']
+        print("homepage =", homepage)
+        '''
         reQ = request.session.get('username')
         print(reQ)
         if reQ != None:
@@ -1939,12 +1969,10 @@ def bookordereditrecord(request,id):
                         adminl.append(admin1)
 
                 
-                    adminjson = adminl#json.dumps(adminl)
+                    adminjson = adminl
                     print(adminjson)
                     print(time.ctime())
                     print("yo2!")
-                    #ad_maill = 
-                    #print("ad_maill =",ad_maill)
                     z = str(member['firstname']).upper()
                     y = str(member['lastname']).upper()
                     print("member firstname =",z)
@@ -1984,6 +2012,10 @@ def bookordereditrecord(request,id):
         return HttpResponseRedirect(reverse('index'))
 
 def profile(request):
+    home = 'profile'
+    request.session['homepage'] = home
+    homepage = request.session['homepage']
+    print("homepage =", homepage)
     mymembers = Rentalsapp.objects.all().values()
     print(mymembers)
     reQ = request.session.get('username')
@@ -2090,6 +2122,12 @@ def profile(request):
 
 def cancelorder(request, id):
     try:
+        '''
+        home = 'property_details'
+        request.session['homepage'] = home
+        homepage = request.session['homepage']
+        print("homepage =", homepage)
+        '''
         reQ = request.session.get('username')
         print(reQ)
         if reQ != None:
@@ -2229,6 +2267,13 @@ def editprofilee(request):
     else: 
         mymembers = Rentalsapp.objects.all().values()
         print(mymembers)
+        k = request.session.get('member_id')
+        print("k =", k)
+        if k != None:
+            member = Rentalsapp.objects.values().get(id=k)
+        else:
+            member = "None"
+        print("memberbkedit =",member)
         year = date.today().year
         print(year)
         h = request.POST['current_pass']
@@ -2258,9 +2303,9 @@ def editprofilee(request):
                 err = request.session['error']
                 print("err =", err)
                 return HttpResponseRedirect(reverse('profile'))
-            member = Rentalsapp(password=i) #id=k,)
+            member = Rentalsapp(firstname=member['firstname'], lastname=member['lastname'], email=member['email'], password=i, status=member['status'], id=member['id'], profile_picture=member['profile_picture'],)
             member.save()
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('profile'))
 
 
 #Ths code deletes members from the record.
@@ -2303,6 +2348,9 @@ def subscribe_email(request, html):
                 subemail = subscription(email=a,)
                 subemail.save()
                 print("subemail =",subemail)
+                errorsub = 'You have successfully subscribed'
+                request.session['errorsub'] = errorsub
+                esub = request.session['errorsub']
             return HttpResponseRedirect(reverse(html))
         else:
             errorsub = 'Please enter a valid email'
@@ -2312,3 +2360,198 @@ def subscribe_email(request, html):
             return HttpResponseRedirect(reverse(html))
     else:
         return HttpResponseRedirect(reverse('index'))
+
+def privacy_policy(request):
+    home = 'privacy_policy'
+    request.session['homepage'] = home
+    homepage = request.session['homepage']
+    print("homepage =", homepage)
+
+    k = request.session.get('member_id')
+    print("k =", k)
+    if k != None:
+        member = Rentalsapp.objects.values().get(id=k)
+    else:
+        member = "None"
+    print("member =",member)
+    pp = request.session.get('profilepic')
+    print('profile = ',pp)
+    reQ = request.session.get('username')
+    print(reQ)
+    if reQ != None:
+        reQ = reQ.upper()
+    else:
+        reQ = reQ
+    print(reQ)
+    year = date.today().year
+    print(year)
+    html = "contact"
+    esub = request.session.get('errorsub')
+    if esub == None:
+        esub = ""
+    else:
+        esub = esub
+    template = loader.get_template('privacy_policy.html')
+    context = {
+        'member': member,
+        'reQ':reQ,
+        'pp':pp,
+        'year':year,
+        'html':html,
+        'errorsub': esub,
+        #'error': 'Message sent',
+    }
+    
+    return HttpResponse(template.render(context, request))
+
+def payment_process(request):
+    a = request.GET['reference']
+    print("reference =", a)
+    
+    base_url = "https://api.paystack.co"
+    path = f'/transaction/verify/' + a
+
+    headers = {
+        "Authorization": f"Bearer sk_test_f747fe80a9608cfaed867578cf3ab7c75966f40e",
+        "Content-Type":'application/json'
+    }
+	
+    url = base_url + path
+    response = requests.get(url, headers=headers)
+    #print("response =", response)
+    
+    if response.status_code == 200:
+        response_data = response.json()
+        if response_data['data']['status'] == 'success':
+            pickup_date = response_data['data']['metadata']['pickup_date']
+            print("pick_up date =", pickup_date)
+            return_date = response_data['data']['metadata']['return_date']
+            screen_id = response_data['data']['metadata']['screen_id']
+            status = response_data['data']['metadata']['status']
+            email = response_data['data']['metadata']['email']
+            full_amount = response_data['data']['metadata']['full_amount']
+            
+            admins = admin.objects.all().values()
+            print('admins =',admins)
+             
+            print('id = ',screen_id)
+            k = request.session.get('member_id')
+            print("k =", k)    
+             
+            if k != None:
+                member = Rentalsapp.objects.values().get(id=k)
+            else:
+                member = "None"
+            print("member =",member)
+            details = screens.objects.values().get(id=screen_id)
+            print("bookeredit details =", details)
+            h = pickup_date
+            i = return_date
+            j = screen_id
+            l = request.session.get('member_id')
+            m = date.today()
+            n = status
+            o = email
+            p = full_amount
+            q = datetime.datetime.now().timestamp()
+            '''
+            print("h =",h)
+            print("i =",i)
+            print("j =",j)
+            print("i =",l)
+            print("m =",m)
+            print("n =",n)
+            print("o =",o)
+            print("p =",p)
+            '''
+            print("response =", response_data)
+             
+            screendetails = screenbookings(date_for_pickup=h, date_for_return=i, screen_id=j, user_id=l, date_added=m, status=n, user_email=o, screen_price=p, current_timee=q,)
+            screendetails.save()
+            screendetails = screenbookings.objects.values().get(current_timee=q)
+            print("screendetails =", screendetails)
+            adminl = []
+
+            for x in admins:
+                admin1 = {}
+                admin1["Name"] = x['firstname']
+                admin1["Email"] = x['email']
+             
+                adminl.append(admin1)
+
+             
+            adminjson = adminl#json.dumps(adminl)
+            print(adminjson)
+            print(time.ctime())
+            print("yo!")
+            #ad_maill = 
+            #print("ad_maill =",ad_maill)
+            z = str(member['firstname']).upper()
+            y = str(member['lastname']).upper()
+            print("admin firstname =",x['firstname'])
+            print("member firstname =",z)
+            print("member lastname =",y)
+            print("details screenname =",details['screenname'])
+            subject = "New order alert"
+            message = "Hello!<br>" +  z + " " + y + " has just placed an order to rent the " + details['screenname'] + ", and will want to pick it up by " + h + " and return it, " + i + ".<br>Kindly check, confirm and process this order.<br> Thanks in anticipation."
+            #print(message)
+            email_from = member['email']
+            name_from = settings.APP_NAME
+            name_from2 = settings.APP_NAME
+            message2 = "Hello " + z + " " + y + "!<br>Your order has been received and is being processed.<br>Thanks for always, cheers!"
+            email_to2 = member['email']
+            print("email2 =",email_to2)
+            email_to = "diaphorosnachalah77@gmail.com"
+            print("check for them: ",subject, message, email_from, name_from, email_to)
+            mailer(email_from, name_from, email_to, subject, message, adminjson,)
+            mailer(email_from, name_from2, email_to2, subject, message2, [])
+
+            j = screendetails['id']
+            l = request.session.get('member_id')
+            m = date.today()
+            n = a
+            o = email
+            p = full_amount
+            transaction_details = transactions(order_id=j, user_id=l, payment_date=m, transaction_key=n, user_email=o, amount_paid=p,)
+            transaction_details.save()
+
+            print("j =",j)
+            print("i =",l)
+            print("m =",m)
+            print("n =",n)
+            print("o =",o)
+            print("p =",p)
+            print("transaction details =", transaction_details)
+
+            return HttpResponse("successful", content_type="text/plain")
+                
+        else:
+            return HttpResponse("unsuccessful", content_type="text/plain")
+    else:
+        pass
+
+
+    
+
+    print("payment_process = paystack process successful.")
+
+
+def payment_receipt(request, id):
+    transaction = transactions.objects.values().get(order_id=id)
+    screendetails = screenbookings.objects.values().get(id=id)
+    scrn_id = screendetails['screen_id']
+    details = screens.objects.values().get(id=scrn_id)
+
+    amount_paid = transaction['amount_paid']
+    payment_date = transaction['payment_date']
+    item_paid_for = details['screenname']
+    transaction_key = transaction['transaction_key']
+    template = loader.get_template('payment_receipt.html')
+    context = {
+        'amount': amount_paid,
+        'payment_date': payment_date,
+        'item': item_paid_for,
+        'key': transaction_key,
+    }
+    
+    return HttpResponse(template.render(context, request))

@@ -8,7 +8,7 @@
     <!-- #favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
     <!-- #title -->
-    <title>Revest : Real Estate Investment For Everyone</title>
+    <title>PRORENT - Screen rentals and Video Conferencing Solutions</title>
     <!-- #keywords -->
     <meta name="keywords" content="Real Estate, Investment, Properties, Rent">
     <!-- #description -->
@@ -245,6 +245,7 @@
                                                             <th>Date for return</th>
                                                             <th>Date of booking </th>
                                                             <th>STATUS</th>
+                                                            <th>Transaction Details</th>
                                                             <th>Edit order</th>
                                                             <th>Cancel order</th>
                                                         </tr>
@@ -268,6 +269,7 @@
                                                             {% if x.status == 'Canceled' %}
                                                             <td><span class="paid"></span>Canceled</td>
                                                             {% endif %}
+                                                            <td><a href="/rentalsapp/payment_receipt/{{ x.id }}" class="button button--effect">Receipt</a></td>
                                                             <td><a href="/rentalsapp/statusedit/{{ x.id }}" class="button button--effect" style="height:65px;width:120px;">Edit order</a></td>
                                                             <td><a href="/rentalsapp/deleteorder/{{x.id}}" class="button button--effect" style="height:65px;width:120px;">Cancel order</a></td>
 
@@ -438,17 +440,14 @@
                             <!-- <p>Revest is a platform offering anyone the ability to invest and potentially earn money
                                 from property at the click of a button</p> -->
                             <div class="social">
-                                <a href="#">
-                                    <i class="fa-brands fa-facebook-f"></i>
+                                <a href="https://www.facebook.com/search/top?q=proxynet%20communications" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-twitter"></i>
+                                <a href="https://www.instagram.com/proxynetcommltd/" target="_blank">
+                                    <i class="fab fa-instagram"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-linkedin-in"></i>
+                                <a href="https://www.linkedin.com/company/proxynet-group/" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
                                 </a>
                             </div>
                         </div>
@@ -513,16 +512,6 @@
                     <div class="col-sm-9 order-1 order-sm-0">
                         <div class="footer__copyright">
                             <p>Copyright © {{year}} | Designed by <a href="https://proxynetgroup.com/">Proxynet Communications</a></p>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="footer__language">
-                            <select class="language-select" style="display: none;">
-                                <option value="english">En</option>
-                                <option value="australia">Aus</option>
-                                <option value="brazil">Bra</option>
-                                <option value="argentina">Arg</option>
-                            </select><div class="nice-select language-select" tabindex="0"><span class="current">En</span><ul class="list"><li data-value="english" class="option selected">En</li><li data-value="australia" class="option">Aus</li><li data-value="brazil" class="option">Bra</li><li data-value="argentina" class="option">Arg</li></ul></div>
                         </div>
                     </div>
                 </div>

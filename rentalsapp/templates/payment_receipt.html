@@ -1,0 +1,453 @@
+{% load static %}
+<html lang="en-US">
+<head>
+    <!-- required meta -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- #favicon -->
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+    <!-- #title -->
+    <title>PRORENT - Screen rentals and Video Conferencing Solutions</title>
+    <!-- #keywords -->
+    <meta name="keywords" content="Real Estate, Investment, Properties, Rent">
+    <!-- #description -->
+    <meta name="description" content="Real Estate Investment For Everyone">
+    <!-- #author -->
+    <meta name="author" content="Pixelaxis">
+
+    <!-- ==== css dependencies start ==== -->
+
+    <!-- bootstrap five css -->
+    <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+    <!-- font awesome six css -->
+    <link rel="stylesheet" href="{% static 'all.min.css?v=7' %}">
+    <!-- nice select css -->
+    <link rel="stylesheet" href="{% static 'nice-select.css' %}">
+    <!-- magnific popup css -->
+    <link rel="stylesheet" href="{% static 'magnific-popup.css' %}">
+    <!-- slick css -->
+    <link rel="stylesheet" href="{% static '/slick.css' %}">
+    <!-- animate css -->
+    <link rel="stylesheet" href="{% static 'animate.css' %}">
+
+    <!-- ==== css dependencies end ==== -->
+	<base href="http://127.0.0.1:8000/rentalsapp/">
+
+    <!-- main css -->
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+
+    <!-- Favicon -->
+	<link rel="icon" href="./images/favicon.png" type="image/x-icon" />
+
+    <!-- Invoice styling -->
+		<style>
+			body {
+				font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+				text-align: center;
+				color: #777;
+			}
+
+			body h1 {
+				font-weight: 300;
+				margin-bottom: 0px;
+				padding-bottom: 0px;
+				color: #000;
+			}
+
+			body h3 {
+				font-weight: 300;
+				margin-top: 10px;
+				margin-bottom: 20px;
+				font-style: italic;
+				color: #555;
+			}
+
+			body a {
+				color: #06f;
+			}
+
+			.invoice-box {
+				max-width: 800px;
+				margin: auto;
+				padding: 30px;
+				border: 1px solid #eee;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+				font-size: 16px;
+				line-height: 24px;
+				font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+				color: #555;
+			}
+
+			.invoice-box table {
+				width: 100%;
+				line-height: inherit;
+				text-align: left;
+				border-collapse: collapse;
+			}
+
+			.invoice-box table td {
+				padding: 5px;
+				vertical-align: top;
+			}
+
+			.invoice-box table tr td:nth-child(2) {
+				text-align: right;
+			}
+
+			.invoice-box table tr.top table td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.top table td.title {
+				font-size: 45px;
+				line-height: 45px;
+				color: #333;
+			}
+
+			.invoice-box table tr.information table td {
+				padding-bottom: 40px;
+			}
+
+			.invoice-box table tr.heading td {
+				background: #eee;
+				border-bottom: 1px solid #ddd;
+				font-weight: bold;
+			}
+
+			.invoice-box table tr.details td {
+				padding-bottom: 20px;
+			}
+
+			.invoice-box table tr.item td {
+				border-bottom: 1px solid #eee;
+			}
+
+			.invoice-box table tr.item.last td {
+				border-bottom: none;
+			}
+
+			.invoice-box table tr.total td:nth-child(2) {
+				border-top: 2px solid #eee;
+				font-weight: bold;
+			}
+
+			@media only screen and (max-width: 600px) {
+				.invoice-box table tr.top table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+
+				.invoice-box table tr.information table td {
+					width: 100%;
+					display: block;
+					text-align: center;
+				}
+			}
+		</style>
+
+</head>
+
+<body>
+
+    <!-- ==== header start ==== -->
+
+    <header class="header">
+        <nav class="navbar navbar-expand-xl">
+            <div class="container">
+                <a class="navbar-brand" href="/rentalsapp/">
+                    <img src="{% static 'assets/images/logo2.png' %}" alt="Logo" style="height:50px;" class="logo">
+                </a>
+                <div class="navbar__out order-2 order-xl-3">
+                    <div class="nav__group__btn">
+                        {% if reQ == None %}
+                        <a href="/rentalsapp/login/" class="log d-none d-sm-block"> Log In </a>
+                        <a href="/rentalsapp/register/" class="button button--effect d-none d-sm-block"> Join Now <i class="fa-solid fa-arrow-right-long"></i> </a>
+                        {% endif %}
+                        {% if reQ != None %}
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarLoanDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hello {{reQ}}!
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarLoanDropdown">
+                                    <li><a class="dropdown-item" href="/rentalsapp/profile/">Edit profile</a></li>
+                                    <li><a class="dropdown-item" href="/rentalsapp/logout/">Log Out</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <a href="#" class="profile">
+                            {% if member.profile_picture != "" %}
+                              <img src="{{BASE_DIR}}/static{{pp}}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
+                            {% endif %}
+                            {% if member.profile_picture == "" %}
+                              <img src="{% static 'assets/images/profilepic/default.jpg' %}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
+                            {% endif %}
+                        </a>
+                        {% endif %}
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNav" aria-controls="primaryNav" aria-expanded="false" aria-label="Toggle Primary Nav">
+                        <span class="icon-bar top-bar"></span>
+                        <span class="icon-bar middle-bar"></span>
+                        <span class="icon-bar bottom-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse order-3 order-xl-2" id="primaryNav">
+                    <ul class="navbar-nav">
+                      <li class="nav-item">
+                          <a class="nav-link" href="/rentalsapp/">Home</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="#">About Us</a>
+                          <!-- <a class="nav-link" href="/rentalsapp/about_us/">About Us</a> -->
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/rentalsapp/contact/">Contact Us</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/rentalsapp/results/">Booking</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" target="_blank" href="http://promallshop.com/">Shop</a>
+                      </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==== #header end ==== -->
+
+    
+
+    <!-- ==== dashboard section start ==== -->
+    <div class="dashboard section__space__bottom">
+        <div class="container">
+            
+                <div class="row">
+                    
+                    <div class="col-xxl-9">
+                        
+                            
+                            
+                                <div class="investment-table investment-table-two">
+                                    <div class="intro">
+                                        <h5>Transaction details</h5>
+                                    </div>
+                                    
+                                    <div class="invoice-box">
+                                        <table>
+                                        
+
+                                            <tr class="information">
+                                                <td colspan="2">
+                                                    <table>
+                                                        <tr>
+                                                            
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="heading">
+                                                <td>Item paid for</td>
+
+                                                <td>{{item}}</td>
+                                            </tr>
+
+                                            <tr class="heading">
+                                                <td>Amount Paid</td>
+
+                                                <td>NGN {{amount}}</td>
+                                            </tr>
+
+                                            
+
+                                            <tr class="heading">
+                                                <td>Payment Date</td>
+
+                                                <td>{{payment_date}}</td>
+                                            </tr>
+
+                                            <tr class="heading">
+                                                <td>Transaction key</td>
+
+                                                <td>{{key}}</td>
+                                            </tr>
+
+                                            
+                                        </table>
+                                    </div>
+                                </div>
+                            
+                        
+                    </div>
+                </div>
+            
+        </div>
+    </div>
+    <!-- ==== #dashboard section end ==== -->
+
+    <!-- ==== footer section start ==== -->
+    <footer class="footer pos__rel over__hi">
+        <div class="container">
+            <div class="footer__newsletter">
+                <div class="row d-flex align-items-center">
+                    <div class="col-lg-6">
+                        <div class="footer__newsletter__content column__space">
+                            <h3>Subscribe for updates</h3>
+                            <p>Stay on top of the latest blog posts, news and announcements</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-xxl-5 offset-xxl-1">
+                        <div class="footer__newsletter__form">
+                            <span style="color:red"> {{ errorsub }}</span>
+                            <form action="/rentalsapp/subscribe_email/{{html}}" method="post">
+                                {% csrf_token %}
+                                <div class="footer__newsletter__input__group">
+                                    <div class="input">
+                                        <input type="email" name="news__letter" id="newsLetterMail" placeholder="Enter Your Email" required="required">
+                                    </div>
+                                    <button type="submit" class="button button--effect">Subscribe</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__area section__space">
+                <div class="row">
+                    <div class="col-md-12 col-lg-4 col-xl-4">
+                        <div class="footer__intro">
+                            <a href="/rentalsapp/i/">
+                                <img src="{% static 'assets/images/proxynet_logo.jpeg' %}" alt="Revest" class="logo">
+                            </a>
+                            <!-- <p>Revest is a platform offering anyone the ability to invest and potentially earn money
+                                from property at the click of a button</p> -->
+                            <div class="social">
+                                <a href="https://www.facebook.com/search/top?q=proxynet%20communications" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://www.instagram.com/proxynetcommltd/" target="_blank">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://www.linkedin.com/company/proxynet-group/" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links footer__links--alt">
+                            <h5>Nigeria</h5>
+                            <ul>
+                                <li class="neutral-bottom">
+                                    <a href="#">
+                                        Head Office:<br>
+                                        The Proxynet House, 5B, Adedeji Close, off Opebi Road, Ikeja, Lagos, Nigeria.<br>
+                                        Telephone No:<br> +234 7032647755<br><br>
+                                        ABUJA Office:<br>
+                                        House 21, Street 693, Off Road 69, Gwarimpa, Abuja, Nigeria.<br>
+                                        Telephone no:<br> +234 9031829347
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links footer__links--alt">
+                            <h5>Ghana</h5>
+                            <ul>
+                                <li class="neutral-bottom">
+                                    <a href="#">
+                                        No 18 Nii Klu Osae Avenue, Off American House, Accra, Ghana.
+                                        Telephone no: +233302546703
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links footer__links--alt--two">
+                            <h5>Cote d'Ivoire</h5>
+                            <ul>
+                                <li class="neutral-bottom">
+                                    <a href="#">
+                                        1st floor of the SIAA Building, Cocody 2 Plateaux, 7e Tranche Road, Vase d'Honneur Crossroads, Abidjan, Ivory Coast
+                                        Telephone no: +22522468434
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3 col-lg-2 col-xl-2">
+                        <div class="footer__links">
+                            <h5>Dubai</h5>
+                            <ul>
+                                <li class="neutral-bottom">
+                                    <a href="#">Building A2, Unit 101, Dubai Silicon Oasis, DDP, Dubai, United Arab Emirates</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__credit">
+                <div class="row d-flex align-items-center">
+                    <div class="col-sm-9 order-1 order-sm-0">
+                        <div class="footer__copyright">
+                            <p>Copyright © {{year}} | Designed by <a href="https://proxynetgroup.com/">Proxynet Communications</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer__animation">
+            <img src="{% static 'assets/images/footer/footer__left__circle.png' %}" alt="Circle" class="left__circle">
+            <img src="{% static 'assets/images/footer/footer__right__circle.png' %}" alt="Circle" class="right__circle">
+            <img src="{% static 'assets/images/footer/footer__home___illustration.png' %}" alt="Home" class="home__illustration">
+        </div>
+    </footer>
+    <!-- ==== #footer section end ==== -->
+
+    <!-- Scroll To Top -->
+    <a href="javascript:void(0)" class="scrollToTop active">
+        <i class="fa-solid fa-angles-up"></i>
+    </a>
+
+    <!-- ==== js dependencies start ==== -->
+
+    <!-- jquery -->
+    <script src="assets/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <!-- bootstrap five js -->
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- nice select js -->
+    <script src="assets/vendor/nice-select/js/jquery.nice-select.min.js"></script>
+    <!-- magnific popup js -->
+    <script src="assets/vendor/magnific-popup/js/jquery.magnific-popup.min.js"></script>
+    <!-- slick js -->
+    <script src="assets/vendor/slick/js/slick.js"></script>
+    <!-- shuffle js -->
+    <script src="assets/vendor/shuffle/shuffle.min.js"></script>
+    <!-- jquery downcount timer -->
+    <script src="assets/vendor/downcount/jquery.downCount.js"></script>
+    <!-- waypoints js -->
+    <script src="assets/vendor/waypoints-js/jquery.waypoints.min.js"></script>
+    <!-- counter up js -->
+    <script src="assets/vendor/counter-js/jquery.counterup.min.js"></script>
+    <!-- apex chart js -->
+    <script src="assets/vendor/apex-chart/apexcharts.min.js"></script>
+    <!-- wow js -->
+    <script src="assets/vendor/wow/wow.min.js"></script>
+
+    <!-- ==== js dependencies end ==== -->
+
+    <!-- plugin js -->
+    <script src="assets/js/plugin.js"></script>
+    <!-- main js -->
+    <script src="assets/js/main.js"></script>
+
+
+
+<svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev" style="overflow: hidden; top: -100%; left: -100%; position: absolute; opacity: 0;"><defs id="SvgjsDefs1002"></defs><polyline id="SvgjsPolyline1003" points="0,0"></polyline><path id="SvgjsPath1004" d="M0 0 "></path></svg></body></html>

@@ -8,7 +8,7 @@
     <!-- #favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
     <!-- #title -->
-    <title>Revest : Real Estate Investment For Everyone</title>
+    <title>PRORENT - Screen rentals and Video Conferencing Solutions</title>
     <!-- #keywords -->
     <meta name="keywords" content="Real Estate, Investment, Properties, Rent">
     <!-- #description -->
@@ -119,7 +119,7 @@
                             <h5 class="neutral-top">A better way to rent your screens</h5>
                             <h1>Pro<span>RENT</span></h1>
                             <p class="primary neutral-bottom">
-                                We Rent, Sell and Install Display Screens and Video Conferencing solutions of all Types and Sizes.
+                                We have provided quality service – LED Screen and Video Conferencing solutions rental, installation and sale across Nigeria.
                             </p>
                             <div class="hero__cta__group">
                                 <a href="#available_screens" class="button button--effect">Start Exploring</a>
@@ -148,7 +148,6 @@
                             {% csrf_token %}
                                 <div class="input">
                                     <input type="search" name="property__search" id="propertySearch" placeholder="Search for screens">
-                                    <i class="fa-solid fa-magnifying-glass"></i>
                                 </div>
                                 <div class="col-lg-6 col-xl-3">
                                     <div class="property__select__wrapper">
@@ -189,12 +188,6 @@
                         <div class="col-lg-8" id="available_screens">
                             <h2>Available Screens</h2>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="text-start text-lg-end">
-                                <a href="/rentalsapp/properties/" class="button button--secondary button--effect">Browse All
-                                    Properties</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 {% for x in screenns %}
@@ -218,21 +211,21 @@
                                                 {{ x.screenname }}
                                             </h4>
                                         </a>
-                                        <p style="text-transform: capitalize;"><i class="fa-solid fa-location-dot"></i> {{ x.short_description }}</p>
+                                        <p style="text-transform: capitalize;">{{ x.short_description }}</p>
                                     </div>
                                 </div>
-                               <!-- <div class="progress__type progress__type--two">
+                               <div class="progress__type progress__type--two">
                                     <div class="progress">
                                         <div class="progress-bar" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                     <div class="project__info">
-                                        <p class="project__has"><span class="project__has__investors">119
-                                                Investors</span> |
+                                       <!-- <p class="project__has"><span class="project__has__investors">119
+                                                Investors</span> |-->
                                         <p class="project__goal">
-                                            <i class="fa-solid fa-dollar-sign"></i> {{ x.price }}
+                                           NGN {{ x.price }}
                                         </p>
                                     </div>
-                                </div> -->
+                                </div>
                                 <div class="item__info">
                                     <div class="item__info__single">
                                         <p>Category</p>
@@ -285,9 +278,7 @@
                                 </div>
                             </div>
                             <h4>Browse Screens</h4>
-                            <p class="neutral-bottom">Select a property that fits your goal from our huge variety of
-                                hand-picked properties.
-                            </p>
+                            <p class="neutral-bottom">Select the option that fits your goal from our huge variety of screens and VC solutions</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-4">
@@ -299,9 +290,7 @@
                                 </div>
                             </div>
                             <h4>View Details &amp; Book</h4>
-                            <p class="neutral-bottom">View detailed metrics for that property like Rental Yield, etc.
-                                and invest like institutions.
-                            </p>
+                            <p class="neutral-bottom">You will be notified once your booking has been confirmed</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-xl-4">
@@ -313,9 +302,7 @@
                                 </div>
                             </div>
                             <h4>Track Order</h4>
-                            <p class="neutral-bottom">You have full visibility into the performance of your investment.
-                                Track your total current.
-                            </p>
+                            <p class="neutral-bottom">Easily track your bookings through our user-friendly dashboard</p>
                         </div>
                     </div>
                 </div>
@@ -323,7 +310,8 @@
         </div>
     </section>
     <!-- ==== #start step section end ==== -->
-
+    {{footer}}
+    <br/><br/>
     <!-- ==== footer section start ==== -->
     <footer class="footer pos__rel over__hi">
         <div class="container">
@@ -361,17 +349,14 @@
                             <!-- <p>Revest is a platform offering anyone the ability to invest and potentially earn money
                                 from property at the click of a button</p> -->
                             <div class="social">
-                                <a href="#">
-                                    <i class="fa-brands fa-facebook-f"></i>
+                                <a href="https://www.facebook.com/search/top?q=proxynet%20communications" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-twitter"></i>
+                                <a href="https://www.instagram.com/proxynetcommltd/" target="_blank">
+                                    <i class="fab fa-instagram"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-linkedin-in"></i>
+                                <a href="https://www.linkedin.com/company/proxynet-group/" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
                                 </a>
                             </div>
                         </div>
@@ -436,16 +421,6 @@
                     <div class="col-sm-9 order-1 order-sm-0">
                         <div class="footer__copyright">
                             <p>Copyright © {{year}} | Designed by <a href="https://proxynetgroup.com/">Proxynet Communications</a></p>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="footer__language">
-                            <select class="language-select" style="display: none;">
-                                <option value="english">En</option>
-                                <option value="australia">Aus</option>
-                                <option value="brazil">Bra</option>
-                                <option value="argentina">Arg</option>
-                            </select><div class="nice-select language-select" tabindex="0"><span class="current">En</span><ul class="list"><li data-value="english" class="option selected">En</li><li data-value="australia" class="option">Aus</li><li data-value="brazil" class="option">Bra</li><li data-value="argentina" class="option">Arg</li></ul></div>
                         </div>
                     </div>
                 </div>

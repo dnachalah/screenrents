@@ -3736,7 +3736,7 @@ header {
 
 .property__filter__area form {
   position: relative;
-  height: 70px;
+  height: 72px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

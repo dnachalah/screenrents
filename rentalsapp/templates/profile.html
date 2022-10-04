@@ -8,7 +8,7 @@
     <!-- #favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
     <!-- #title -->
-    <title>Revest : Real Estate Investment For Everyone</title>
+    <title>PRORENT - Screen rentals and Video Conferencing Solutions</title>
     <!-- #keywords -->
     <meta name="keywords" content="Real Estate, Investment, Properties, Rent">
     <!-- #description -->
@@ -115,61 +115,6 @@
             <div class="dashboard__area">
                 
 				<div class="row">
-                    <div class="col-xxl-3">
-                        <div class="sidebar">
-                            <a href="javascript:void(0)" class="close__sidebar">
-                                <i class="fa-solid fa-xmark"></i>
-                            </a>
-                            <div class="sidenav__wrapper">
-                                <ul>
-                                    <li>
-                                        <a href="dashboard.html">
-                                            <img src="assets/images/icons/dashboard.png" alt="Dashboard"> Dashboard
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="investment.html">
-                                            <img src="assets/images/icons/investments.png" alt="Investments">
-                                            Investments
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="transaction.html">
-                                            <img src="assets/images/icons/transactions.png" alt="Transactions">
-                                            Transactions
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="withdraw.html">
-                                            <img src="assets/images/icons/withdraw.png" alt="Withdraw"> Withdraw
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="account.html" class="sidenav__active">
-                                            <img src="assets/images/icons/account.png" alt="Account"> Account
-                                        </a>
-                                    </li>
-                                </ul>
-                                <hr>
-                                <ul class="logout">
-                                    <li>
-                                        <a href="login.html">
-                                            <img src="assets/images/icons/logout.png" alt="Logout"> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="sidenav__wrapper sidenav__footer">
-                                <h6>Last Login</h6>
-                                <hr>
-                                <div class="sidenav__time">
-                                    <p class="secondary"><img src="assets/images/icons/calendar.png" alt="Calendar">
-                                        02.01.2022</p>
-                                    <p class="secondary">15:48:13</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 					
                     <div class="col-xxl-9">
 					
@@ -183,14 +128,6 @@
                             </div>
 							
                             <div class="main__content-dashboard">
-                                <div class="breadcrumb-dashboard">
-                                    <h5>Account</h5>
-                                    <div>
-                                        <a href="index.html">Home</a>
-                                        <i class="fa-solid fa-arrow-right-long"></i>
-                                        <a href="javascript:void(0)">Account</a>
-                                    </div>
-                                </div>
                                 
 								<div class="account-info">
 								    <div class="account-info__btn-wrapper">
@@ -272,6 +209,7 @@
                                                             <th>Date for return</th>
                                                             <th>Date of booking </th>
                                                             <th>STATUS</th>
+                                                            <th>Transaction Details</th>
                                                             <th>Edit order</th>
                                                             <th>Cancel order</th>
                                                         </tr>
@@ -285,7 +223,8 @@
                                                             <td>{{x.date_added}}</td>
                                                             {% if x.status == 'Pending' %}
                                                             <td><span class="process"></span>Processing</td>
-                                                            <td><a href="/rentalsapp/bookorderedit/{{ details.id }}" class="button button--effect">Edit order</a></td>
+                                                            <td><a href="/rentalsapp/payment_receipt/{{ x.id }}" class="button button--effect">Receipt</a></td>
+                                                            <td><a href="/rentalsapp/bookorderedit/{{ x.id }}" class="button button--effect">Edit order</a></td>
                                                             <td>
                                                                 <form action="/rentalsapp/cancelorder/{{x.id}}" method="post">
                                                                     {% csrf_token %}
@@ -296,6 +235,7 @@
                                                             {% endif %}
                                                             {% if x.status == 'Completed' %}
                                                             <td><span class="paid"></span>Completed</td>
+                                                            <td><a href="#" class="button button--effect">Receipt</a></td>
                                                             <td></td>
                                                             <td></td>
                                                             {% endif %}
@@ -391,20 +331,17 @@
                             <a href="/rentalsapp/i/">
                                 <img src="{% static 'assets/images/proxynet_logo.jpeg' %}" alt="Revest" class="logo">
                             </a>
-                            <p>Revest is a platform offering anyone the ability to invest and potentially earn money
-                                from property at the click of a button</p>
+                            <!-- <p>Revest is a platform offering anyone the ability to invest and potentially earn money
+                                from property at the click of a button</p> -->
                             <div class="social">
-                                <a href="#">
-                                    <i class="fa-brands fa-facebook-f"></i>
+                                <a href="https://www.facebook.com/search/top?q=proxynet%20communications" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-twitter"></i>
+                                <a href="https://www.instagram.com/proxynetcommltd/" target="_blank">
+                                    <i class="fab fa-instagram"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-linkedin-in"></i>
+                                <a href="https://www.linkedin.com/company/proxynet-group/" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
                                 </a>
                             </div>
                         </div>
@@ -469,16 +406,6 @@
                     <div class="col-sm-9 order-1 order-sm-0">
                         <div class="footer__copyright">
                             <p>Copyright © {{year}} | Designed by <a href="https://proxynetgroup.com/">Proxynet Communications</a></p>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="footer__language">
-                            <select class="language-select" style="display: none;">
-                                <option value="english">En</option>
-                                <option value="australia">Aus</option>
-                                <option value="brazil">Bra</option>
-                                <option value="argentina">Arg</option>
-                            </select><div class="nice-select language-select" tabindex="0"><span class="current">En</span><ul class="list"><li data-value="english" class="option selected">En</li><li data-value="australia" class="option">Aus</li><li data-value="brazil" class="option">Bra</li><li data-value="argentina" class="option">Arg</li></ul></div>
                         </div>
                     </div>
                 </div>

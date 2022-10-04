@@ -8,7 +8,7 @@
     <!-- #favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
     <!-- #title -->
-    <title>Revest ‐ Real Estate Investment For Everyone</title>
+    <title>PRORENT - Screen rentals and Video Conferencing Solutions</title>
     <!-- #keywords -->
     <meta name="keywords" content="Real Estate, Investment, Properties, Rent">
     <!-- #description -->
@@ -68,12 +68,7 @@
                             </li>
                         </ul>
                         <a href="#" class="profile">
-                            {% if member != None %}
-                              <img src="{{BASE_DIR}}/static{{pp}}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
-                            {% endif %}
-                            {% if member == None %}
-                              <img src="{% static 'assets/images/profilepic/default.jpg' %}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
-                            {% endif %}
+                            <img src="{% static 'assets/images/profilepic/default.jpg' %}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
                         </a>
                         {% endif %}
                     </div>
@@ -127,11 +122,6 @@
                             <input type="password" name="admin__login__pass" id="adminloginPass" placeholder="Password" required="required">
                         </div>
                         <div class="checkbox login__checkbox">
-                            <label>
-                                <input type="checkbox" id="remeberPass" name="remeber__pass" value="remember">
-                                <span class="checkmark"></span>
-                                Remember Me
-                            </label>
                             <a href="{% static 'javascript:void(0)' %}">Forget Password</a>
                         </div>
                         <div class="input__button">

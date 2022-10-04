@@ -8,7 +8,7 @@
     <!-- #favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
     <!-- #title -->
-    <title>Revest ‐ Real Estate Investment For Everyone</title>
+    <title>PRORENT - Screen rentals and Video Conferencing Solutions</title>
     <!-- #keywords -->
     <meta name="keywords" content="Real Estate, Investment, Properties, Rent">
     <!-- #description -->
@@ -133,7 +133,7 @@
                     <div class="col-lg-5">
                         <div class="p__details__sidebar">
                             <div style="border-radius:20px;" class="intro">
-                                <span style="color:red"> {{ error }} </span>
+                                <span style="color:red"> <b>{{ error }}</b> </span>
                                 <form action="/rentalsapp/bookordereditrecord/{{ details.id }}" method="post" name="registration__form">
                                     {% csrf_token %}
                                     <div class="row">
@@ -217,7 +217,7 @@
                     <div class="col-lg-6 col-xxl-5 offset-xxl-1">
                         <div class="footer__newsletter__form">
                             <span style="color:red"> {{ errorsub }}</span>
-                            <form action="/rentalsapp/subscribe_email/{{html}}/{{ details.id }}" method="post">
+                            <form action="/rentalsapp/subscribe_email/{{html}}" method="post">
                                 {% csrf_token %}
                                 <div class="footer__newsletter__input__group">
                                     <div class="input">
@@ -240,17 +240,14 @@
                             <!-- <p>Revest is a platform offering anyone the ability to invest and potentially earn money
                                 from property at the click of a button</p> -->
                             <div class="social">
-                                <a href="#">
-                                    <i class="fa-brands fa-facebook-f"></i>
+                                <a href="https://www.facebook.com/search/top?q=proxynet%20communications" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-twitter"></i>
+                                <a href="https://www.instagram.com/proxynetcommltd/" target="_blank">
+                                    <i class="fab fa-instagram"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-linkedin-in"></i>
+                                <a href="https://www.linkedin.com/company/proxynet-group/" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
                                 </a>
                             </div>
                         </div>
@@ -315,16 +312,6 @@
                     <div class="col-sm-9 order-1 order-sm-0">
                         <div class="footer__copyright">
                             <p>Copyright © {{year}} | Designed by <a href="https://proxynetgroup.com/">Proxynet Communications</a></p>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="footer__language">
-                            <select class="language-select" style="display: none;">
-                                <option value="english">En</option>
-                                <option value="australia">Aus</option>
-                                <option value="brazil">Bra</option>
-                                <option value="argentina">Arg</option>
-                            </select><div class="nice-select language-select" tabindex="0"><span class="current">En</span><ul class="list"><li data-value="english" class="option selected">En</li><li data-value="australia" class="option">Aus</li><li data-value="brazil" class="option">Bra</li><li data-value="argentina" class="option">Arg</li></ul></div>
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@
     <!-- #favicon -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
     <!-- #title -->
-    <title>Revest ‐ Real Estate Investment For Everyone</title>
+    <title>PRORENT - Screen rentals and Video Conferencing Solutions</title>
     <!-- #keywords -->
     <meta name="keywords" content="Real Estate, Investment, Properties, Rent">
     <!-- #description -->
@@ -135,8 +135,7 @@
                         <div style="padding-top:38px;" class="p__details__sidebar">
                             <br/><br/>
                             <div style="border-radius:20px;" class="intro">
-                                <span style="color:red"> {{ error }}</span>
-                                <form action="/rentalsapp/bookorder/{{ details.id }}" method="post" name="registration__form">
+                                <form action="/rentalsapp/bookorder/{{ details.id }}" method="post" name="registration__form" id="paymentForm">
                                     {% csrf_token %}
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -152,11 +151,37 @@
                                                 <input type="hidden" name="screen__id" id="screenId" placeholder="Screen ID" value="{{details.id}}" required="required">
                                                 <input type="hidden" name="screen__name" id="screenname" placeholder="Screen Name" value="{{details.screenname}}" required="required">
                                                 <input type="hidden" name="status" id="status" placeholder="Status" value="Pending" required="required">
+                                                <input type="hidden" name="email" id="email-address" placeholder="email" value="{{member.email}}" required="required">
+                                                <input type="hidden" name="amount" id="amount" placeholder="amount" value="{{details.price}}" required="required">
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="progress__type progress__type--two">
+                                                <div class="project__info">
+                                                    <p class="project__has"><span class="project__has__investors">Screen Price</span> | <span class="project__has__investors__amount">NGN {{details.price}}</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="progress__type progress__type--two">
+                                                <div class="project__info">
+                                                    <p class="project__has"><span class="project__has__investors">Transaction charges</span> | <span class="project__has__investors__amount">NGN {{tc}}</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <div class="progress__type progress__type--two">
+                                                <div class="project__info">
+                                                    <p class="project__has"><span class="project__has__investors">Total amount payable</span> | <span class="project__has__investors__amount">NGN {{tac}}</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span style="color:red"> <b id="error">{{ error }}</b> </span>
                                     <div class="input__button">
-                                        <button type="submit" class="button button--effect">Book</button>
+                                        <button type="button" onclick="payWithPaystack()" class="button button--effect">Book</button>
                                     </div>
                                 </form>
 
@@ -245,17 +270,14 @@
                             <!-- <p>Revest is a platform offering anyone the ability to invest and potentially earn money
                                 from property at the click of a button</p> -->
                             <div class="social">
-                                <a href="#">
-                                    <i class="fa-brands fa-facebook-f"></i>
+                                <a href="https://www.facebook.com/search/top?q=proxynet%20communications" target="_blank">
+                                    <i class="fab fa-facebook-f"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-twitter"></i>
+                                <a href="https://www.instagram.com/proxynetcommltd/" target="_blank">
+                                    <i class="fab fa-instagram"></i>
                                 </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </a>
-                                <a href="#">
-                                    <i class="fa-brands fa-linkedin-in"></i>
+                                <a href="https://www.linkedin.com/company/proxynet-group/" target="_blank">
+                                    <i class="fab fa-linkedin-in"></i>
                                 </a>
                             </div>
                         </div>
@@ -322,16 +344,6 @@
                             <p>Copyright © {{year}} | Designed by <a href="https://proxynetgroup.com/">Proxynet Communications</a></p>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="footer__language">
-                            <select class="language-select" style="display: none;">
-                                <option value="english">En</option>
-                                <option value="australia">Aus</option>
-                                <option value="brazil">Bra</option>
-                                <option value="argentina">Arg</option>
-                            </select><div class="nice-select language-select" tabindex="0"><span class="current">En</span><ul class="list"><li data-value="english" class="option selected">En</li><li data-value="australia" class="option">Aus</li><li data-value="brazil" class="option">Bra</li><li data-value="argentina" class="option">Arg</li></ul></div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -372,6 +384,8 @@
     <script src="{% static 'assets/vendor/apex-chart/apexcharts.min.js' %}"></script>
     <!-- wow js -->
     <script src="{% static 'assets/vendor/wow/wow.min.js' %}"></script>
+    <!-- paystack js -->
+    <script src="https://js.paystack.co/v1/inline.js"></script> 
 
     <!-- ==== js dependencies end ==== -->
 
@@ -383,6 +397,62 @@
         var today = new Date().toISOString().split('T')[0];
         document.getElementsByName("date__taken")[0].setAttribute('min', today);
     </script>-->
+
+    <script>
+        var paymentForm = document.getElementById('paymentForm');
+        //paymentForm.addEventListener('submit', payWithPaystack, false);
+        function payWithPaystack() {
+            var pickup = document.getElementById('dateTaken').value;
+            if(pickup==""){
+                //alert();
+                document.getElementById('error').innerHTML='Please input pickup date.';
+                return false;
+            }
+            var date_for_return = document.getElementById('dateReturned').value;
+            if(date_for_return==""){
+                //alert();
+                document.getElementById('error').innerHTML='Please input return date.';
+                return false;
+            }
+            var screen_id = document.getElementById('screenId').value;
+            var status = document.getElementById('status').value;
+            var email = document.getElementById('email-address').value;
+            var full_amount = '{{tac}}';
+        var handler = PaystackPop.setup({
+
+            key: 'pk_test_8e92ed01476563ac91a8393ed50f29470254eef4', // Replace with your public key
+            email: '{{member.email}}',
+            amount: full_amount * 100, // the amount value is multiplied by 100 to convert to the lowest currency unit
+            currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
+            metadata:{"pickup_date":pickup, "return_date":date_for_return, "screen_id":screen_id, "status":status, "email":email, "full_amount":full_amount},
+            ref: Date.now(), // Replace with a reference you generated
+            callback: function(response){
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/rentalsapp/payment-process?reference='+ response.reference,
+                    method: 'get',
+                    success: function (response) {
+                        if(response=="unsuccessful"){
+                            document.getElementById('error').innerHTML='Transaction unsuccessful. Please try again';
+                        }
+                        if (response=="successful") {
+                            document.getElementById('error').innerHTML='You have successfully booked your screen!';
+                        }
+                        
+                    // the transaction status is in response.data.status
+                        
+                    }
+                });
+            },
+            onClose: function() {
+            alert('Transaction was not completed, window closed.');
+            },
+            onError: function(e) {
+            alert('error.');
+            },
+        });
+        handler.openIframe();
+        }
+    </script>
 
 
 

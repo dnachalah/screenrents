@@ -57,6 +57,9 @@ class screenbookings(models.Model):
     date_for_return = models.CharField(max_length=255)
     added_by = models.CharField(max_length=255)
     status = models.CharField(max_length=255)
+    user_email = models.CharField(max_length=255)
+    screen_price = models.CharField(max_length=255)
+    current_timee = models.CharField(max_length=255)
     class Meta:
         db_table = "screens_bookings"
 
@@ -81,3 +84,15 @@ class contacts(models.Model):
     message = models.CharField(max_length=255)
     class Meta:
         db_table = "contacts"
+
+
+class transactions(models.Model):
+    id = models.IntegerField(primary_key = True)
+    order_id = models.CharField(max_length=255)
+    user_id = models.CharField(max_length=255)
+    user_email = models.CharField(max_length=4294967295)
+    payment_date = models.CharField(max_length=255)
+    amount_paid = models.CharField(max_length=255)
+    transaction_key = models.CharField(max_length=255)
+    class Meta:
+        db_table = "transaction_details"
