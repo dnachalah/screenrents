@@ -179,7 +179,7 @@
                         </ul>
                         <a href="#" class="profile">
                             {% if member.profile_picture != "" %}
-                              <img src="{{BASE_DIR}}/static{{pp}}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
+                              <img src="{{BASE_DIR}}/static{{member.profile_picture}}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
                             {% endif %}
                             {% if member.profile_picture == "" %}
                               <img src="{% static 'assets/images/profilepic/default.jpg' %}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
@@ -224,67 +224,46 @@
     <!-- ==== dashboard section start ==== -->
     <div class="dashboard section__space__bottom">
         <div class="container">
-            
-                <div class="row">
-                    
-                    <div class="col-xxl-9">
-                        
-                            
-                            
-                                <div class="investment-table investment-table-two">
-                                    <div class="intro">
-                                        <h5>Transaction details</h5>
-                                    </div>
-                                    
-                                    <div class="invoice-box">
+            <div class="row">
+                <div class="col-xxl-9">                        
+                    <div class="investment-table investment-table-two">
+                        <div class="intro">
+                            <h5>Transaction details</h5>
+                        </div>
+                        <div class="invoice-box">
+                            <table>
+                                <tr class="information">
+                                    <td colspan="2">
                                         <table>
-                                        
-
-                                            <tr class="information">
-                                                <td colspan="2">
-                                                    <table>
-                                                        <tr>
-                                                            
-                                                        </tr>
-                                                    </table>
-                                                </td>
+                                            <tr>
+                                                
                                             </tr>
-
-                                            <tr class="heading">
-                                                <td>Item paid for</td>
-
-                                                <td>{{item}}</td>
-                                            </tr>
-
-                                            <tr class="heading">
-                                                <td>Amount Paid</td>
-
-                                                <td>NGN {{amount}}</td>
-                                            </tr>
-
-                                            
-
-                                            <tr class="heading">
-                                                <td>Payment Date</td>
-
-                                                <td>{{payment_date}}</td>
-                                            </tr>
-
-                                            <tr class="heading">
-                                                <td>Transaction key</td>
-
-                                                <td>{{key}}</td>
-                                            </tr>
-
-                                            
                                         </table>
-                                    </div>
-                                </div>
-                            
-                        
+                                    </td>
+                                </tr>
+                                <tr class="heading">
+                                    <td>Item paid for</td>
+                                    <td>{{item}}</td>
+                                </tr>
+                                <tr class="heading">
+                                    <td>Amount Paid</td>
+                                    <td>NGN {{amount}}</td>
+                                </tr>
+                                
+                                <tr class="heading">
+                                    <td>Payment Date</td>
+                                    <td>{{payment_date}}</td>
+                                </tr>
+                                <tr class="heading">
+                                    <td>Transaction key</td>
+                                    <td>{{key}}</td>
+                                </tr>
+                                
+                            </table>
+                        </div>
                     </div>
                 </div>
-            
+            </div>
         </div>
     </div>
     <!-- ==== #dashboard section end ==== -->
@@ -326,7 +305,7 @@
                             <!-- <p>Revest is a platform offering anyone the ability to invest and potentially earn money
                                 from property at the click of a button</p> -->
                             <div class="social">
-                                <a href="https://www.facebook.com/search/top?q=proxynet%20communications" target="_blank">
+                                <a href="https://www.facebook.com/proxynetcommunications/" target="_blank">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                                 <a href="https://www.instagram.com/proxynetcommltd/" target="_blank">

@@ -68,7 +68,7 @@
                     </ul>
                     <a href="#" class="profile">
                         {% if member.profile_picture != "" %}
-                          <img src="{{BASE_DIR}}/static{{pp}}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
+                          <img src="{{BASE_DIR}}/static{{member.profile_picture}}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
                         {% endif %}
                         {% if member.profile_picture == "" %}
                           <img src="{% static 'assets/images/profilepic/default.jpg' %}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
@@ -551,7 +551,7 @@
                             <!-- <p>Revest is a platform offering anyone the ability to invest and potentially earn money
                                 from property at the click of a button</p> -->
                             <div class="social">
-                                <a href="https://www.facebook.com/search/top?q=proxynet%20communications" target="_blank">
+                                <a href="https://www.facebook.com/proxynetcommunications/" target="_blank">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                                 <a href="https://www.instagram.com/proxynetcommltd/" target="_blank">

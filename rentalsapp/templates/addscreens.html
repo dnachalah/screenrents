@@ -134,8 +134,8 @@
                               <select class="location__select" style="display: none;" name="edit__screen__cat" id="screenCategory" placeholder="category" required="required">
                                 <option data-display="Category">Select Category</option>
                                 {% for y in categorys %}
-                                <option name="edit__screen__cat" id="category" 
-                                {% if catt == y.id|stringformat:"i" %} selected {% endif %} value="{{y.id}}">
+                                <option id="category" 
+                                {% if catt == y.id %} selected {% endif %} value="{{y.id}}">
                                     {{y.category}} 
                                 </option>
                                 {% endfor %}
@@ -149,8 +149,8 @@
                             <select class="property__select" style="display: none;" name="edit__brand" id="brand" placeholder="brand" required="required">
                             <option data-display="Brand">Select Brand</option>
                             {% for q in brandds %}
-                                <option name="edit__brand" id="brand"
-                                {% if brndd == q.id|stringformat:"i" %} selected {% endif %} value="{{q.id}}">
+                                <option id="brand"
+                                {% if brndd == q.id %} selected {% endif %} value="{{q.id}}">
                                     {{q.brand}}
                                 </option>
                             {% endfor %}

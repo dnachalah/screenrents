@@ -115,7 +115,7 @@
                 <div class="registration__area">
                 <span style="color:red"> {{ error }}</span>
                     <h4 class="neutral-top">Reset Password</h4>
-                    <form action="/rentalsapp/resetpassrecord/{{id}}" name="change__pass" method="post">
+                    <form action="/rentalsapp/resetpassrecord/{{tk}}" name="change__pass" method="post">
                         {% csrf_token %}
                         <div class="input input--secondary">
                             <label for="newPass">New Password</label>

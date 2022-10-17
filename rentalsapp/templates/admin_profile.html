@@ -33,6 +33,10 @@
     <!-- summernote -->
     <!-- include libraries(jQuery, bootstrap) -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- datatble css -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <!-- jQuery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
    
 
     <!-- ==== css dependencies end ==== -->
@@ -112,61 +116,6 @@
         <div class="container">
             <div class="dashboard__area">
                 <div class="row">
-                    <div class="col-xxl-3">
-                        <div class="sidebar">
-                            <a href="javascript:void(0)" class="close__sidebar">
-                                <i class="fa-solid fa-xmark"></i>
-                            </a>
-                            <div class="sidenav__wrapper">
-                                <ul>
-                                    <li>
-                                        <a href="dashboard.html">
-                                            <img src="assets/images/icons/dashboard.png" alt="Dashboard"> Dashboard
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="investment.html">
-                                            <img src="assets/images/icons/investments.png" alt="Investments">
-                                            Investments
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="transaction.html">
-                                            <img src="assets/images/icons/transactions.png" alt="Transactions">
-                                            Transactions
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="withdraw.html">
-                                            <img src="assets/images/icons/withdraw.png" alt="Withdraw"> Withdraw
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="account.html" class="sidenav__active">
-                                            <img src="assets/images/icons/account.png" alt="Account"> Account
-                                        </a>
-                                    </li>
-                                </ul>
-                                <hr>
-                                <ul class="logout">
-                                    <li>
-                                        <a href="login.html">
-                                            <img src="assets/images/icons/logout.png" alt="Logout"> Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="sidenav__wrapper sidenav__footer">
-                                <h6>Last Login</h6>
-                                <hr>
-                                <div class="sidenav__time">
-                                    <p class="secondary"><img src="assets/images/icons/calendar.png" alt="Calendar">
-                                        02.01.2022</p>
-                                    <p class="secondary">15:48:13</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-xxl-9">
                         <div class="main__content">
                             <div class="collapse__sidebar">
@@ -176,14 +125,6 @@
                                 </a>
                             </div>
                             <div class="main__content-dashboard">
-                                <div class="breadcrumb-dashboard">
-                                    <h5>Account</h5>
-                                    <div>
-                                        <a href="index.html">Home</a>
-                                        <i class="fa-solid fa-arrow-right-long"></i>
-                                        <a href="javascript:void(0)">Account</a>
-                                    </div>
-                                </div>
                                 <div class="account-info">
                                     <div class="account-info__btn-wrapper">
                                         <a href="#screens" class="account-info__btn account-info__btn-active button button--effect">Screens</a>
@@ -197,38 +138,44 @@
                                             <div class="intro">
                                                 <h5>About Screens</h5>
                                             </div>
-                                            <div class="table-wrapper">
-                                                <table>
-                                                    <tbody><tr>
-                                                        <th>Picture</th>
-                                                        <th>Screenname</th>
-                                                        <th>Date Added</th>
-                                                        <th>Price</th>
-                                                        <th>Edit Screen</th>
-                                                        <th>Delete Screen</th>
-                                                    </tr>
-                                                    {% for x in details %}
-                                                    
-                                                    <tr style="padding: 0px;">
-                                                        <td style="padding-right: 40px;">
-                                                            <form action="/rentalsapp/admin/remove_screens/{{ x.id }}" method="post" name="addscreens" class="save__form" enctype="multipart/form-data">
-                                                                {% csrf_token %}
-                                                                <input type="hidden" name="pic__id" id="picid" placeholder="pic id" value="{{x.id}}" required="required">
-                                                                <div class="input__button">
-                                                                    <button type="submit" class="imgpic button--effect"><img src="{{BASE_DIR}}/static{{x.first}}" style="height:100px;width:200px;" alt={{x.screenname}}></button>
-                                                                </div>
-                                                            </form>
-                                                        </td>
-                                                        <td>{{x.screenname}}</td>
-                                                        <td>{{x.date_added}}</td>
-                                                        <td>{{x.price}}</td>
-                                                        <td><a href="/rentalsapp/admin/screensedit/{{ x.id }}" class="button button--effect" style="height:65px;width:150px;">Edit Screen</a></td>
-                                                        <td><a href="/rentalsapp/deletescreen/{{x.id}}" class="button button--effect" style="height:65px;width:150px;">Delete Screen</a></td>
-                                                    </tr>
-                                                    {% endfor %}
 
-                                                </tbody></table>
+                                            <div class="table-responsive">
+                                                <div class="table-wrapper">
+                                                    <table id="table_id" class="display">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Picture</th>
+                                                                <th>Screenname</th>
+                                                                <th>Date Added</th>
+                                                                <th>Price</th>
+                                                                <th>Edit Screen</th>
+                                                                <th>Delete Screen</th>
+                                                            </tr>
+                                                            {% for x in details %}
+                                                        
+                                                            <tr style="padding: 0px;">
+                                                                <td style="padding-right: 40px;">
+                                                                    <form action="/rentalsapp/admin/remove_screens/{{ x.id }}" method="post" name="addscreens" class="save__form" enctype="multipart/form-data">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="pic__id" id="picid" placeholder="pic id" value="{{x.id}}" required="required">
+                                                                        <div class="input__button">
+                                                                            <button type="submit" class="imgpic button--effect"><img src="{{BASE_DIR}}/static{{x.first}}" style="height:100px;width:200px;" alt={{x.screenname}}></button>
+                                                                        </div>
+                                                                    </form>
+                                                                </td>
+                                                                <td>{{x.screenname}}</td>
+                                                                <td>{{x.date_added}}</td>
+                                                                <td>{{x.price}}</td>
+                                                                <td><a href="/rentalsapp/admin/screensedit/{{ x.id }}" class="button button--effect" style="height:65px;width:150px;">Edit Screen</a></td>
+                                                                <td><a href="/rentalsapp/deletescreen/{{x.id}}" class="button button--effect" style="height:65px;width:150px;">Delete Screen</a></td>
+                                                            </tr>
+                                                            {% endfor %}
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
+
                                         </div>
                                     </div>
                                         <div class="account-content" id="billing" style="display: none;">
@@ -236,47 +183,50 @@
                                                 <div class="intro">
                                                     <h5>About Orders</h5>
                                                 </div>
-                                                <div class="table-wrapper">
-                                                    <table>
-                                                        <tbody><tr>
-                                                            <th>Name of user</th>
-                                                            <th>Screens</th>
-                                                            <th>Date for pickup</th>
-                                                            <th>Date for return</th>
-                                                            <th>Date of booking </th>
-                                                            <th>STATUS</th>
-                                                            <th>Transaction Details</th>
-                                                            <th>Edit order</th>
-                                                            <th>Cancel order</th>
-                                                        </tr>
-                                                        {% for x in screendetails %}
-                                                        <tr>
-                                                            <td>
-                                                                {{x.firstname}}
-                                                            </td>
-                                                            <td>
-                                                                {{x.screenname}}
-                                                            </td>
-                                                            <td>{{x.date_for_pickup}}</td>
-                                                            <td>{{x.date_for_return}}</td>
-                                                            <td>{{x.date_added}}</td>
-                                                            {% if x.status == 'Pending' %}
-                                                            <td><span class="process"></span>Pending</td>
-                                                            {% endif %}
-                                                            {% if x.status == 'Completed' %}
-                                                            <td><span class="paid"></span>Completed</td>
-                                                            {% endif %}
-                                                            {% if x.status == 'Canceled' %}
-                                                            <td><span class="paid"></span>Canceled</td>
-                                                            {% endif %}
-                                                            <td><a href="/rentalsapp/payment_receipt/{{ x.id }}" class="button button--effect">Receipt</a></td>
-                                                            <td><a href="/rentalsapp/statusedit/{{ x.id }}" class="button button--effect" style="height:65px;width:120px;">Edit order</a></td>
-                                                            <td><a href="/rentalsapp/deleteorder/{{x.id}}" class="button button--effect" style="height:65px;width:120px;">Cancel order</a></td>
+                                                <div class="table-responsive">
+                                                    <div class="table-wrapper">
+                                                        <table id="table_id" class="display">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>Name of user</th>
+                                                                    <th>Screens</th>
+                                                                    <th>Date for pickup</th>
+                                                                    <th>Date for return</th>
+                                                                    <th>Date of booking </th>
+                                                                    <th>STATUS</th>
+                                                                    <th>Transaction Details</th>
+                                                                    <th>Edit order</th>
+                                                                    <th>Cancel order</th>
+                                                                </tr>
+                                                                {% for x in screendetails %}
+                                                                <tr>
+                                                                    <td style="text-transform: Capitalize;">
+                                                                        {{x.firstname}} {{x.lastname}}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{x.screenname}}
+                                                                    </td>
+                                                                    <td>{{x.date_for_pickup}}</td>
+                                                                    <td>{{x.date_for_return}}</td>
+                                                                    <td>{{x.date_added}}</td>
+                                                                    {% if x.status == 'Pending' %}
+                                                                    <td><span class="process"></span>Pending</td>
+                                                                    {% endif %}
+                                                                    {% if x.status == 'Completed' %}
+                                                                    <td><span class="paid"></span>Completed</td>
+                                                                    {% endif %}
+                                                                    {% if x.status == 'Canceled' %}
+                                                                    <td><span class="paid"></span>Canceled</td>
+                                                                    {% endif %}
+                                                                    <td><a href="/rentalsapp/payment_receipt/{{ x.id }}" class="button button--effect">Receipt</a></td>
+                                                                    <td><a href="/rentalsapp/statusedit/{{ x.id }}" class="button button--effect" style="height:65px;width:120px;">Edit order</a></td>
+                                                                    <td><a href="/rentalsapp/deleteorder/{{x.id}}" class="button button--effect" style="height:65px;width:120px;">Cancel order</a></td>
 
-                                                        </tr>
-                                                        {% endfor %}
-
-                                                    </tbody></table>
+                                                                </tr>
+                                                                {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -285,30 +235,34 @@
                                                 <div class="intro">
                                                     <h5>About Users</h5>
                                                 </div>
-                                                <div class="table-wrapper">
-                                                    <table style="width:100%">
-                                                        <tbody><tr>
-                                                            <th>Firstname</th>
-                                                            <th>Lastname</th>
-                                                            <th>Email</th>
-                                                            <th>Status</th>
-                                                            <th>Edit User</th>
-                                                            <th>Delete User</th>
-                                                        </tr>
-                                                        {% for x in mymembers %}
-                                                        <tr>
-                                                            <td>
-                                                                {{x.firstname}}
-                                                            </td>
-                                                            <td>{{x.lastname}}</td>
-                                                            <td style="word-wrap:break-word">{{x.email}}</td>
-                                                            <td>{{x.status}}</td>
-                                                            <td><a href="/rentalsapp/userstatus/{{ x.id }}" class="button button--effect" style="height:65px;width:150px;">Edit User</a></td>
-                                                            <td><a href="/rentalsapp/deleteorder/{{x.id}}" class="button button--effect" style="height:65px;width:150px;">Delete User</a></td>
-                                                        </tr>
-                                                        {% endfor %}
+                                                <div class="table-responsive">
+                                                    <div class="table-wrapper">
+                                                        <table id="table_id" class="display" style="width:100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th>Firstname</th>
+                                                                    <th>Lastname</th>
+                                                                    <th>Email</th>
+                                                                    <th>Status</th>
+                                                                    <th>Edit User</th>
+                                                                    <th>Delete User</th>
+                                                                </tr>
+                                                                {% for x in mymembers %}
+                                                                <tr>
+                                                                    <td>
+                                                                        {{x.firstname}}
+                                                                    </td>
+                                                                    <td>{{x.lastname}}</td>
+                                                                    <td style="word-wrap:break-word">{{x.email}}</td>
+                                                                    <td>{{x.status}}</td>
+                                                                    <td><a href="/rentalsapp/userstatus/{{ x.id }}" class="button button--effect" style="height:65px;width:150px;">Edit User</a></td>
+                                                                    <td><a href="/rentalsapp/deleteorder/{{x.id}}" class="button button--effect" style="height:65px;width:150px;">Delete User</a></td>
+                                                                </tr>
+                                                                {% endfor %}
 
-                                                    </tbody></table>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -316,7 +270,7 @@
                                             <div class="investment-table">
                                                 <!-- ==== registration section start ==== -->
                                                 <!--<section class="registration clear__top">-->
-                                                  <div class="wrapper bg__img" data-background="{% static './assets/images/registration-bg.png' %}" style="background-image: url(&quot;{% static './assets/images/registration-bg.png' %}&quot;);">
+                                                  <div class="wrapper bg__img" data-background="{% static './assets/images/registration-bg.png' %}" style="background-image: url("{% static './assets/images/registration-bg.png' %}");">
                                                     <div class="container">
                                                         <div class="registration__area">
                                                             <span style="color:red">{{ error }}</span>
@@ -399,8 +353,7 @@
                                                                         <input type="file" name="files" multiple id="screenPicture" accept="image/*">
                                                                     </div>
                                                                 <!--</div>-->
-                                                              </div>
-                                                            </div>
+                                                                                                                      
                                                               <div class="col-sm-6">
                                                                 <div class="input__button">
                                                                     <button type="submit" class="button button--effect" style="margin-left:50%;">Add Screen</button>
@@ -423,8 +376,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
     <!-- ==== #dashboard section end ==== -->
 
     <!-- ==== footer section start ==== -->
@@ -537,6 +488,13 @@
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <!-- datatable script -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable();
+         });
+    </script>
     <!-- include summernote css/js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <!-- summernote -->

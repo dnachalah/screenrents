@@ -68,7 +68,7 @@
                     </ul>
                     <a href="#" class="profile">
                         {% if member.profile_picture != "" %}
-                          <img src="{{BASE_DIR}}/static{{pp}}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
+                          <img src="{{BASE_DIR}}/static{{member.profile_picture}}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
                         {% endif %}
                         {% if member.profile_picture == "" %}
                           <img src="{% static 'assets/images/profilepic/default.jpg' %}" style="height:60px;width:60px;border-radius:50%" alt="Profile">
@@ -160,29 +160,29 @@
                                         <div class="col-sm-12">
                                             <div class="progress__type progress__type--two">
                                                 <div class="project__info">
-                                                    <p class="project__has"><span class="project__has__investors">Screen Price</span> | <span class="project__has__investors__amount">NGN {{details.price}}</span></p>
+                                                    <p class="project__has"><span class="project__has__investors">Screen Price</span> | <span class="project__has__investors__amount">{{details.price}}</span></p>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="progress__type progress__type--two">
                                                 <div class="project__info">
-                                                    <p class="project__has"><span class="project__has__investors">Transaction charges</span> | <span class="project__has__investors__amount">NGN {{tc}}</span></p>
+                                                    <p class="project__has"><span class="project__has__investors">Transaction charges</span> | <span class="project__has__investors__amount">{{tc}}</span></p>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="progress__type progress__type--two">
                                                 <div class="project__info">
-                                                    <p class="project__has"><span class="project__has__investors">Total amount payable</span> | <span class="project__has__investors__amount">NGN {{tac}}</span></p>
+                                                    <p class="project__has"><span class="project__has__investors">Total amount payable</span> | <span class="project__has__investors__amount">{{tacc}}</span></p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <span style="color:red"> <b id="error">{{ error }}</b> </span>
+                                    {% if reQ == None %}
+                                    <div class="input__button">
+                                        <a href="/rentalsapp/login/" type="button" class="button button--effect">Book</a>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if reQ != None %}
                                     <div class="input__button">
                                         <button type="button" onclick="payWithPaystack()" class="button button--effect">Book</button>
                                     </div>
+                                    {% endif %}
                                 </form>
 
                             </div>
@@ -270,7 +270,7 @@
                             <!-- <p>Revest is a platform offering anyone the ability to invest and potentially earn money
                                 from property at the click of a button</p> -->
                             <div class="social">
-                                <a href="https://www.facebook.com/search/top?q=proxynet%20communications" target="_blank">
+                                <a href="https://www.facebook.com/proxynetcommunications/" target="_blank">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
                                 <a href="https://www.instagram.com/proxynetcommltd/" target="_blank">

@@ -1,3 +1,4 @@
+import cryptocode
 from django.shortcuts import render
 from array import array
 from urllib import request
@@ -23,6 +24,9 @@ from django.conf import settings
 from django.http import QueryDict
 from django.utils.datastructures import MultiValueDict
 from mailjet_rest import Client
+from json import JSONEncoder
+import json
+import jsonpickle
 import requests
 import urllib.request
 import urllib.request as urllib
@@ -114,7 +118,7 @@ def admin_loginlog(request):
         else:
             pass
 
-    except Rentalsapp.DoesNotExist:
+    except admin.DoesNotExist:
         template = loader.get_template('admin_login.html')
         context = {
             'error': "Invalid username or password.",
@@ -188,6 +192,7 @@ def adminprofile(request):
             users = Rentalsapp.objects.all().values().get(id=x['user_id'])
             print('users =',users)
             x['firstname'] = users['firstname']
+            x['lastname'] = users['lastname']
             x['screenname'] = detailss['screenname']
             print(x['firstname'], x['screenname'])
         print("Hello world!")
@@ -255,6 +260,13 @@ def adminprofile(request):
                 return HttpResponseRedirect(reverse('adminprofile')+'#addscreens')
 
         else:
+            for d in details:
+                price = d['price']
+                print("price=",price)
+                nprice = "N{:,.2f}".format(int(price))
+                print("nprice =", nprice)
+                d['price'] = nprice
+            print("ydetails =",details)
             template = loader.get_template('admin_profile.html')
             context = {
                 'error': '',
@@ -314,8 +326,6 @@ def remove_screens(request, id=""):
             print("piczz =", piczz)
             year = date.today().year
             print(year)
-            pp = request.session.get('profilepic')
-            print('profile =', pp)
 
             template = loader.get_template('remove_screens.html')
             print("Total = ",len(piczz))
@@ -325,7 +335,6 @@ def remove_screens(request, id=""):
                 'adminn': adminn,
                 'adminnn':adminnn,
                 'admins':admins,
-                'pp':pp,
                 'year':year,
                 'details':details,
                 'piczz':piczz,
@@ -349,7 +358,7 @@ def remove_screens(request, id=""):
             z = request.session.get('admin_id')
             adminn = admin.objects.values().get(id=z)
             adminnn = adminn['firstname']
-            pp = request.session.get('profilepic')
+            #pp = request.session.get('profilepic')
             template = loader.get_template('remove_screens.html')
             print("Total = ",len(piczz))
             context = {
@@ -358,7 +367,6 @@ def remove_screens(request, id=""):
                 'adminn': adminn,
                 'adminnn':adminnn,
                 'admins':admins,
-                'pp':pp,
                 'details':details,
                 'piczz':piczz,
                 'detailss':detailss,
@@ -407,7 +415,7 @@ def removescreendel(request, id):
         print(year)
         admins = admin.objects.all().values()
         print('admins =',admins)
-        pp = request.session.get('profilepic')
+        #pp = request.session.get('profilepic')
         print('profile =', pp)
         if request.POST:
             a = request.POST['pic__url']
@@ -431,7 +439,6 @@ def removescreendel(request, id):
                     'adminnn':adminnn,
                     'admins':admins,
                     'year':year,
-                    'pp':pp,
                     'details':details,
                     'piczz':piczz,
                     'detailss':detailss,        
@@ -470,13 +477,12 @@ def userstatus(request, id):
         print("member =", member)
         year = date.today().year
         print(year)
-        pp = request.session.get('profilepic')
+        #pp = request.session.get('profilepic')
         print('profile = ',pp)
         template = loader.get_template('userstatus.html')
         context = {
             'mymembers':mymembers,
             'id':id,
-            'pp':pp,
             'year':year,
             #'member':member,
             'adminnn':adminnn,
@@ -502,8 +508,8 @@ def userstatusrecord(request,id):
     print(year)
     screenns = screens.objects.all().values()
     print(screenns)
-    pp = request.session.get('profilepic')
-    print('profile = ',pp)
+    #pp = request.session.get('profilepic')
+    #print('profile = ',pp)
     details = screens.objects.all().values()
     print('details =',details)
     q = screenns
@@ -563,17 +569,18 @@ def screensedit(request, id):
         print('id = ',id)
         screen = screens.objects.all().values().get(id=id)
         print(screen)
+        categorys = categories.objects.all().values()
+        brandds = brands.objects.all().values()
         catt = screen['category_id']
         brndd = screen['brand_id']
         print("catt =", catt)
         print("brndd =", brndd)
+        category = categories.objects.all().values().get(id=catt)
+        brand = brands.objects.all().values().get(id=brndd)
         year = date.today().year
         print(year)
-        pp = request.session.get('profilepic')
-        print('profile = ',pp)
-
-        categorys = categories.objects.all().values()
-        brandds = brands.objects.all().values()
+        #pp = request.session.get('profilepic')
+        #print('profile = ',pp)
 
 
         template = loader.get_template('addscreens.html')
@@ -582,10 +589,11 @@ def screensedit(request, id):
             'details':details,
             'screen':screen,
             'year':year,
-            'pp':pp,
             'adminnn':adminnn,
             'categorys':categorys,
             'brandds':brandds,
+            'category':category,
+            'brand':brand,
             'catt':catt,            
             'brndd':brndd,
 
@@ -614,6 +622,7 @@ def screenseditrecord(request,id):
         print(screen)
         year = date.today().year
         print(year)
+        
         #print("request.files =", request.FILES.getlist("files")) 
 
         if request.POST:
@@ -738,8 +747,8 @@ def statusedit(request, id):
         print(d)
         year = date.today().year
         print(year)
-        pp = request.session.get('profilepic')
-        print('profile = ',pp)
+        #pp = request.session.get('profilepic')
+        #print('profile = ',pp)
         template = loader.get_template('statusedit.html')
         context = {
             'screendetails':screendetails,
@@ -747,7 +756,6 @@ def statusedit(request, id):
             'adminn': adminn,
             'adminnn':adminnn,
             'admins':admins,
-            'pp':pp,
             'year':year,
             'piczz':piczz,
             'details':details,
@@ -797,8 +805,8 @@ def statuseditrecord(request,id):
         print("member =",member)
         screenns = screens.objects.all().values()
         print(screenns)
-        pp = request.session.get('profilepic')
-        print('profile = ',pp)
+        #pp = request.session.get('profilepic')
+        #print('profile = ',pp)
         year = date.today().year
         print(year)
         q = screenns
@@ -847,7 +855,6 @@ def statuseditrecord(request,id):
                     'mymembers':mymembers,
                     #'error': 'You have successfully booked your order',
                     'member': member,
-                    'pp':pp,
                     'adminn': adminn,
                     'adminnn':adminnn,
                     'admins':admins,
@@ -890,7 +897,6 @@ def statuseditrecord(request,id):
                     'mymembers':mymembers,
                     #'error': 'You have successfully booked your order',
                     'member': member,
-                    'pp':pp,
                     'year':year,
                     'adminn': adminn,
                     'admins':admins,
@@ -905,7 +911,6 @@ def statuseditrecord(request,id):
                     'details':details,
                     'mymembers':mymembers,
                     'error': 'Date for return cannot be before date for pickup.',
-                    'pp':pp,
                     'adminn': adminn,
                     'adminnn':adminnn,
                     'admins':admins,
@@ -921,16 +926,21 @@ def statuseditrecord(request,id):
 
 #This code displays the login form.
 def login(request):
+    statuss = request.session.get('status')
+    print("status =", statuss)
     form = Rentalsapp.objects.all().values()
     template = loader.get_template('login.html')
-    #context = {
+    context = {
         #'form': form,
-    #}
+        'statuss':statuss
+    }
     #return HttpResponse(template.render(context, request))
-    return HttpResponse(template.render({}, request))
+    return HttpResponse(template.render(context, request))
 
 #This code ensures the email and password are valid.
 def loginlog(request):
+    statuss = request.session.get('status')
+    print("status =", statuss)
     email = request.POST.get('login__email')
     y = request.POST.get('login__pass')
     form = Rentalsapp.objects.all().values()
@@ -979,6 +989,10 @@ def loginlog(request):
             'error': "Invalid username or password.",
         }
         return HttpResponse(template.render(context, request))
+    if statuss != None:
+        del request.session['status']
+    else:
+        pass
     return HttpResponseRedirect(reverse(homepage))
 
 
@@ -986,6 +1000,8 @@ def logout(request):
     try:
         del request.session['member_id']
         del request.session['username']
+        del request.session['errorsub']
+        del request.session['error']
         template = loader.get_template('login.html')
         context = {
             'error': "You're logged out.",
@@ -1015,11 +1031,16 @@ def emailresetpassrecord(request):
                 namm = str(match.firstname).upper()
                 mid = match.id
                 print("match.name =",namm)
+                mid = str(mid)
+
+                tk = cryptocode.encrypt(mid, "12121212")
+                print("mEm =", tk)
+                print("---")
 
                 subject = "Reset password"
-                message = "Hello " + namm + '!<br> Forgot your login password?<br> <a href="http://127.0.0.1:8000/rentalsapp/resetpass/' + str(mid) + '">Click here</a> to set a new one.'
-                #print(message)
-                email_from = ""
+                message = "Hello " + namm + '!<br> Forgot your login password?<br> <a href="http://127.0.0.1:8000/rentalsapp/resetpass/' + tk + '">Click here</a> to set a new one.'
+                print('yo!')
+                email_from = "sales@proxynetgroup.com"
                 name_from = settings.APP_NAME
                 email_to = a
                 adminjson = [{"Email": "ayodelea@proxynetgroup.com", "Name": "Ayodele Adedayo"}]
@@ -1031,7 +1052,6 @@ def emailresetpassrecord(request):
                 }
                 return HttpResponse(template.render(context, request))
         
-            #return HttpResponseRedirect(reverse('login'))
 
             except Rentalsapp.DoesNotExist:
                 template = loader.get_template('resetpassword.html')
@@ -1049,25 +1069,29 @@ def emailresetpassrecord(request):
     else:
         return HttpResponseRedirect(reverse('emailresetpass'))
 
-def resetpass(request, id):
-    id = id
+def resetpass(request, tk):
     template = loader.get_template('setnewpass.html')
     context = {
         'error': '',
-        'id':id,
+        'tk':tk,
     }
     return HttpResponse(template.render(context, request))
 
-def resetpassrecord(request, id):
+def resetpassrecord(request, tk):
     if request.POST:
         mymembers = Rentalsapp.objects.all().values()
         print(mymembers)
+        myDecryptedMessage = cryptocode.decrypt(tk, "12121212")
+        print(myDecryptedMessage)
+        tkk = myDecryptedMessage
+        print("token =", tkk)
+        
         
         try:
-            member = Rentalsapp.objects.values().get(id=id)
+            member = Rentalsapp.objects.values().get(id=tkk)
             print("member =",member)
 
-            match = Rentalsapp.objects.get(id=id)
+            match = Rentalsapp.objects.get(id=tkk)
             print("match =",match)
             namm = str(match.firstname).upper()
             mid = match.id
@@ -1081,7 +1105,8 @@ def resetpassrecord(request, id):
                 template = loader.get_template('setnewpass.html')
                 context = {
                     'error': 'Passwords do not match',
-                    'id':id,
+                    'tk':tk,
+                    #'idd':idd,
                     #'member': member
                 }
                 return HttpResponse(template.render(context, request))
@@ -1137,7 +1162,6 @@ def contact(request):
     context = {
         'member': member,
         'reQ':reQ,
-        'pp':pp,
         'year':year,
         'html':html,
         'errorsub': esub,
@@ -1242,7 +1266,6 @@ def about_us(request):
     context = {
         'member': member,
         'reQ':reQ,
-        'pp':pp,
         'html':html,
         'errorsub': esub,
         'year':year,
@@ -1332,6 +1355,10 @@ def addrecord(request):
                 member = Rentalsapp(firstname=x, lastname=y, email=a, password=c, status=e,) #profile_picture=e)
                 member.save()
                 print(member)
+                status = 'active'
+                request.session['status'] = status
+                statuss = request.session['status']
+                print("status =", statuss)
             return HttpResponseRedirect(reverse('login'))
         else:
             template = loader.get_template('registration.html')
@@ -1395,6 +1422,13 @@ def index(request):
         f['brand'] = fbrand
         print("branddss =", branddss)
     print("fscreenns =",screenns)
+    for d in screenns:
+        price = d['price']
+        print("price=",price)
+        nprice = "N{:,.2f}".format(int(price))
+        print("nprice =", nprice)
+        d['price'] = nprice
+    print("ydetails =",screenns)
     html = "index"
     esub = request.session.get('errorsub')
     if esub == None:
@@ -1409,7 +1443,6 @@ def index(request):
         'username': request.session.get('username'),
         'member':member,
         'mymembers':mymembers,
-        'pp':pp,
         'year':year,
         'categorys':categorys,
         'brandds':brandds,
@@ -1432,17 +1465,25 @@ def results(request):
     print(mymembers)
     year = date.today().year
     print(year)
-    mpp = request.session.get('profilepic')
-    print('profile = ',mpp)
+    k = request.session.get('member_id')
+    print("k =", k)
+    if k != None:
+        member = Rentalsapp.objects.values().get(id=k)
+    else:
+        member = "None"
+    print("member =",member)
+    print("k =", k)
+    #member = Rentalsapp.objects.values().get(id=k)
+    print("member =", member)
     categorys = categories.objects.all().values()
     brandds = brands.objects.all().values()
     screenns = screens.objects.all().values()
     print("screenns1 =",screenns)
     not_found = ''
     for y in screenns:
-        pp = y['picture']
-        print("pic=",pp)
-        ppl = list(pp.split(","))
+        pps = y['picture']
+        print("pic=",pps)
+        ppl = list(pps.split(","))
         print("pplist =", ppl)
         yfirst = ppl[0]
         print("yfirst =", yfirst)
@@ -1459,6 +1500,13 @@ def results(request):
         f['brand'] = fbrand
         print("branddss =", branddss)
     print("fscreenns =",screenns)
+    for d in screenns:
+        price = d['price']
+        print("price=",price)
+        nprice = "N{:,.2f}".format(int(price))
+        print("nprice =", nprice)
+        d['price'] = nprice
+    print("ydetails =",screenns)
     error = 'Input a search term'
 
     if request.POST:
@@ -1527,9 +1575,9 @@ def results(request):
             print("elsescreennns =", screenns)
             return HttpResponseRedirect(reverse('index'))
     for y in screenns:
-        pp = y['picture']
-        print("pic=",pp)
-        ppl = list(pp.split(","))
+        pps = y['picture']
+        print("pic=",pps)
+        ppl = list(pps.split(","))
         print("pplist =", ppl)
         yfirst = ppl[0]
         print("yfirst =", yfirst)
@@ -1580,9 +1628,8 @@ def results(request):
         'screenns':screenns,
         'reQ':reQ,
         'username': request.session.get('username'),
+        'member':member,
         'mymembers':mymembers,
-        'pp':pp,
-        'mpp':mpp,
         'year':year,
         'categorys':categorys,
         'brandds':brandds,
@@ -1600,17 +1647,17 @@ def results(request):
 def property_details(request, id=""):
     try:
         sid = request.session.get('scrn__id')
-        request.session['scrn__id'] = id
-        sid = request.session['scrn__id']
-        print("sid =", sid)
         if id == "":
             id = sid
             print('id from sid =',id)
         else:
             id = id
+            request.session['scrn__id'] = id
+            sid = request.session['scrn__id']
+            print("sid =", sid)
             print('id from sid2 =',id)
         
-        home = 'property_details'
+        home = 'property-details'
         request.session['homepage'] = home
         homepage = request.session['homepage']
         print("homepage =", homepage)
@@ -1649,6 +1696,13 @@ def property_details(request, id=""):
         else:
             pass
         tac = c + tc
+        tc = "N{:,.2f}".format(tc)
+        tacc = "N{:,.2f}".format(tac)
+        price = details['price']
+        print("price=",price)
+        nprice = "N{:,.2f}".format(int(price))
+        print("nprice =", nprice)
+        details['price'] = nprice
         pp = request.session.get('profilepic')
         print('profile = ',pp)
         reQ = request.session.get('username')
@@ -1669,9 +1723,9 @@ def property_details(request, id=""):
             'mymembers':mymembers,
             'member': member,
             'reQ':reQ,
-            'pp':pp,
             'tc':tc,
             'tac':tac,
+            'tacc':tacc,
             'd':d,
             'piczz':piczz,
             'year':year,
@@ -1793,7 +1847,6 @@ def bookorder(request, id):
                     'error': 'You have successfully booked your order',
                     'reQ':reQ,
                     'member':member,
-                    'pp':pp,
                     'year':year,
                     'html':html,
                     'screendetails':screendetails,
@@ -1862,7 +1915,6 @@ def bookorderedit(request, id):
             'mymembers':mymembers,
             'member': member,
             'reQ':reQ,
-            'pp':pp,
             'd':d,
             'year':year,
             'html':html,
@@ -1948,7 +2000,6 @@ def bookordereditrecord(request,id):
                         'd':d,
                         'mymembers':mymembers,
                         'reQ':reQ,
-                        'pp':pp,
                         'year':year,
                         'html':html,
                         'piczz':piczz,
@@ -2000,7 +2051,6 @@ def bookordereditrecord(request,id):
                         'error': 'You have successfully edited your order',
                         'member': member,
                         'reQ':reQ,
-                        'pp':pp,
                         'd':d,
                         'year':year,
                         'html':html,
@@ -2078,7 +2128,6 @@ def profile(request):
             'mymembers':mymembers,
             'screendetails':screendetails,
             'details':details,
-            'pp':pp,
             'year':year,
             'html':html,
             'errorsub': esub,
@@ -2108,7 +2157,6 @@ def profile(request):
             'mymembers':mymembers,
             'screendetails':screendetails,
             'details':details,
-            'pp':pp,
             'year':year,
             'html':html,
             'error':err,
@@ -2224,8 +2272,9 @@ def editprofile(request):
 
             k = request.session.get('member_id')
             print("id =", k)
+            member = Rentalsapp.objects.values().get(id=k)
             if k != None:
-                member = Rentalsapp(firstname=e, lastname=f, email=g, id=k, profile_picture=h)
+                member = Rentalsapp(firstname=e, lastname=f, email=g, password=member['password'], status=member['status'], id=k, profile_picture=h)
                 print("profile-picture: ",member.profile_picture)
                 member.save()
                 #member = Rentalsapp.objects.values().get(id=k)
@@ -2395,7 +2444,6 @@ def privacy_policy(request):
     context = {
         'member': member,
         'reQ':reQ,
-        'pp':pp,
         'year':year,
         'html':html,
         'errorsub': esub,
@@ -2537,6 +2585,34 @@ def payment_process(request):
 
 
 def payment_receipt(request, id):
+    home = 'index'
+    request.session['homepage'] = home
+    homepage = request.session['homepage']
+    print("homepage =", homepage)
+
+    reQ = request.session.get('username')
+
+    print(reQ)
+    if reQ != None:
+        reQ = reQ.upper()
+    else:
+        reQ = reQ
+    print("index reQ =",reQ)
+    mymembers = Rentalsapp.objects.all().values()
+    print(mymembers)
+    year = date.today().year
+    print(year)
+
+    k = request.session.get('member_id')
+    print("k =", k)
+    if k != None:
+        member = Rentalsapp.objects.values().get(id=k)
+    else:
+        member = "None"
+    print("member =",member)
+    pp = request.session.get('profilepic')
+    print('profile = ',pp)
+
     transaction = transactions.objects.values().get(order_id=id)
     screendetails = screenbookings.objects.values().get(id=id)
     scrn_id = screendetails['screen_id']
@@ -2552,6 +2628,11 @@ def payment_receipt(request, id):
         'payment_date': payment_date,
         'item': item_paid_for,
         'key': transaction_key,
+        'reQ':reQ,
+        'username': request.session.get('username'),
+        'member':member,
+        'mymembers':mymembers,
+        'year':year,
     }
     
     return HttpResponse(template.render(context, request))
